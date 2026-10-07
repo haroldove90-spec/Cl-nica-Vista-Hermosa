@@ -20,7 +20,7 @@ export default defineConfig(() => {
           name: 'Clínica Vista Hermosa',
           short_name: 'VistaHermosa',
           description: 'Sistema integral de gestión clínica y hospitalaria conforme a COFEPRIS y NOM-004-SSA3-2012.',
-          theme_color: '#0284c7',
+          theme_color: '#007D8F',
           background_color: '#ffffff',
           display: 'standalone',
           orientation: 'portrait-primary',

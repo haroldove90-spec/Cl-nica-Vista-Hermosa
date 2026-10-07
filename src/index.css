@@ -1,1 +1,55 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #007D8F;
+  --color-secondary: #00838B;
+  --color-accent: #FFBA38;
+  --color-dark: #000000;
+  --color-brand-primary: #007D8F;
+  --color-brand-teal: #007D8F;
+  --color-brand-cyan: #00838B;
+  --color-brand-amber: #FFBA38;
+  --color-brand-dark: #000000;
+}
+
+:root {
+  --brand-primary: #007D8F;
+  --brand-secondary: #00838B;
+  --brand-accent: #FFBA38;
+  --brand-dark: #000000;
+}
+
+/* Custom button and badge styling helper classes */
+.btn-brand-primary {
+  background-color: #007D8F;
+  color: #ffffff;
+}
+.btn-brand-primary:hover {
+  background-color: #00838B;
+}
+
+.btn-brand-accent {
+  background-color: #FFBA38;
+  color: #000000;
+}
+.btn-brand-accent:hover {
+  background-color: #e5a732;
+}
+
+.badge-brand-primary {
+  background-color: rgba(0, 125, 143, 0.12);
+  color: #007D8F;
+  border-color: rgba(0, 125, 143, 0.3);
+}
+
+.badge-brand-secondary {
+  background-color: rgba(0, 131, 139, 0.12);
+  color: #00838B;
+  border-color: rgba(0, 131, 139, 0.3);
+}
+
+.badge-brand-accent {
+  background-color: rgba(255, 186, 56, 0.2);
+  color: #000000;
+  border-color: rgba(255, 186, 56, 0.5);
+}

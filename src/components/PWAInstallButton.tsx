@@ -29,9 +29,9 @@ export const PWAInstallButton: React.FC = () => {
       <button
         onClick={handleInstallClick}
         title="Instalar Clínica Vista Hermosa en Android, iOS o PC"
-        className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-sky-700 bg-sky-50 hover:bg-sky-100 rounded-lg border border-sky-200 shadow-sm transition active:scale-95"
+        className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-[#007D8F] bg-[#007D8F]/10 hover:bg-[#007D8F]/20 rounded-lg border border-[#007D8F]/30 shadow-2xs transition active:scale-95"
       >
-        <Download className="w-3.5 h-3.5 text-sky-600" />
+        <Download className="w-3.5 h-3.5 text-[#007D8F]" />
         <span className="hidden md:inline">Instalar App</span>
         <span className="md:hidden">Instalar</span>
       </button>
@@ -47,7 +47,7 @@ export const PWAInstallButton: React.FC = () => {
                   alt="Clínica Vista Hermosa"
                   className="w-7 h-7 rounded-md object-contain"
                 />
-                <h3 className="text-base font-bold text-slate-900">
+                <h3 className="text-base font-bold text-[#000000]">
                   Instalar Clínica Vista Hermosa
                 </h3>
               </div>
@@ -61,12 +61,12 @@ export const PWAInstallButton: React.FC = () => {
 
             <div className="mt-4 space-y-4 text-sm text-slate-600">
               {isIOS ? (
-                <div className="rounded-xl bg-sky-50/60 p-4 border border-sky-100">
-                  <p className="font-semibold text-sky-950 flex items-center gap-2">
-                    <Share className="w-4 h-4 text-sky-600" />
+                <div className="rounded-xl bg-[#007D8F]/10 p-4 border border-[#007D8F]/20">
+                  <p className="font-bold text-[#000000] flex items-center gap-2">
+                    <Share className="w-4 h-4 text-[#007D8F]" />
                     Pasos en iPhone / iPad (Safari):
                   </p>
-                  <ol className="mt-2 space-y-2 list-decimal list-inside text-slate-700">
+                  <ol className="mt-2 space-y-2 list-decimal list-inside text-slate-800 text-xs">
                     <li>Presiona el botón <strong>Compartir</strong> en la barra de Safari.</li>
                     <li>Desplázate hacia abajo y selecciona <strong>«Agregar a Inicio»</strong>.</li>
                     <li>Toca <strong>«Agregar»</strong> en la esquina superior derecha.</li>
@@ -74,11 +74,11 @@ export const PWAInstallButton: React.FC = () => {
                 </div>
               ) : (
                 <div className="rounded-xl bg-slate-50 p-4 border border-slate-200">
-                  <p className="font-semibold text-slate-900 flex items-center gap-2">
-                    <Smartphone className="w-4 h-4 text-sky-600" />
+                  <p className="font-bold text-[#000000] flex items-center gap-2">
+                    <Smartphone className="w-4 h-4 text-[#007D8F]" />
                     Instalación en Android, Chrome o Computadora:
                   </p>
-                  <ol className="mt-2 space-y-2 list-decimal list-inside text-slate-700">
+                  <ol className="mt-2 space-y-2 list-decimal list-inside text-slate-800 text-xs">
                     <li>Abre el menú del navegador (los tres puntos <strong>⋮</strong>).</li>
                     <li>Selecciona <strong>«Instalar Clínica Vista Hermosa»</strong> o <strong>«Agregar a la pantalla principal»</strong>.</li>
                     <li>La app se abrirá en ventana independiente de pantalla completa de forma ultra rápida.</li>
@@ -87,14 +87,14 @@ export const PWAInstallButton: React.FC = () => {
               )}
 
               <p className="text-xs text-slate-500">
-                La aplicación funcionará sin barras de navegador, con soporte sin conexión y carga instantánea.
+                La aplicación funcionará sin barras de navegador, con soporte sin conexión y acceso instantáneo.
               </p>
             </div>
 
             <div className="mt-5 flex gap-2">
               <button
                 onClick={() => setShowGuide(false)}
-                className="w-full rounded-xl bg-sky-600 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+                className="w-full rounded-xl bg-[#007D8F] hover:bg-[#00838B] py-2.5 text-sm font-bold text-white shadow-sm transition"
               >
                 Entendido
               </button>

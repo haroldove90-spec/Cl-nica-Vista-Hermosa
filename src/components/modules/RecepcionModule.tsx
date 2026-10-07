@@ -255,11 +255,11 @@ export const RecepcionModule: React.FC = () => {
       {/* Module Banner */}
       <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="p-3 rounded-xl bg-teal-100 text-teal-800">
+          <div className="p-3 rounded-xl bg-[#007D8F]/10 text-[#007D8F]">
             <Receipt className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-lg sm:text-xl font-bold text-slate-900">
+            <h1 className="text-lg sm:text-xl font-extrabold text-[#000000]">
               Recepción, Caja y Admisión Hospitalaria
             </h1>
             <p className="text-xs text-slate-500">
@@ -273,7 +273,7 @@ export const RecepcionModule: React.FC = () => {
           <button
             onClick={() => setActiveModule('ficha')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              currentTab === 'ficha' ? 'bg-white text-teal-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'ficha' ? 'bg-[#007D8F] text-white shadow-2xs font-bold' : 'text-slate-600 hover:text-[#000000]'
             }`}
           >
             <UserPlus className="w-3.5 h-3.5" />
@@ -282,7 +282,7 @@ export const RecepcionModule: React.FC = () => {
           <button
             onClick={() => setActiveModule('consentimientos')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              currentTab === 'consentimientos' ? 'bg-white text-sky-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'consentimientos' ? 'bg-[#007D8F] text-white shadow-2xs font-bold' : 'text-slate-600 hover:text-[#000000]'
             }`}
           >
             <PenTool className="w-3.5 h-3.5" />
@@ -291,7 +291,7 @@ export const RecepcionModule: React.FC = () => {
           <button
             onClick={() => setActiveModule('cobranza')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              currentTab === 'cobranza' ? 'bg-white text-emerald-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'cobranza' ? 'bg-[#007D8F] text-white shadow-2xs font-bold' : 'text-slate-600 hover:text-[#000000]'
             }`}
           >
             <DollarSign className="w-3.5 h-3.5" />
@@ -311,13 +311,13 @@ export const RecepcionModule: React.FC = () => {
                 placeholder="Buscar por paciente, expediente o responsable..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 text-xs border border-slate-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                className="w-full pl-9 pr-3 py-2 text-xs border border-slate-300 rounded-xl focus:ring-2 focus:ring-[#007D8F] focus:outline-none"
               />
             </div>
 
             <button
               onClick={() => setShowNewPatientModal(true)}
-              className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-xs font-bold shadow-sm transition"
+              className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-2 bg-[#007D8F] hover:bg-[#00838B] text-white rounded-xl text-xs font-bold shadow-sm transition cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Alta de Paciente (NOM-004)</span>
@@ -351,8 +351,8 @@ export const RecepcionModule: React.FC = () => {
                   ) : (
                     filteredPatients.map((pat) => (
                       <tr key={pat.id} className="hover:bg-slate-50/70 transition">
-                        <td className="p-3.5 font-mono font-bold text-teal-800">{pat.expedienteNumber}</td>
-                        <td className="p-3.5 font-bold text-slate-900">
+                        <td className="p-3.5 font-mono font-bold text-[#007D8F]">{pat.expedienteNumber}</td>
+                        <td className="p-3.5 font-bold text-[#000000]">
                           {pat.fullName}
                           {pat.allergies !== 'Negadas' && (
                             <span className="block text-[10px] text-rose-600 font-normal">
@@ -373,7 +373,7 @@ export const RecepcionModule: React.FC = () => {
                         </td>
                         <td className="p-3.5 text-center">
                           {pat.hasInformedConsent ? (
-                            <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold inline-flex items-center gap-1">
+                            <span className="px-2 py-0.5 rounded bg-[#007D8F]/15 text-[#007D8F] text-[10px] font-bold inline-flex items-center gap-1">
                               <CheckCircle2 className="w-3 h-3" /> Firmado
                             </span>
                           ) : (
@@ -383,7 +383,7 @@ export const RecepcionModule: React.FC = () => {
                                 setConsentWitness2(pat.responsiblePerson);
                                 setActiveModule('consentimientos');
                               }}
-                              className="px-2 py-0.5 rounded bg-amber-100 hover:bg-amber-200 text-amber-800 text-[10px] font-bold"
+                              className="px-2 py-0.5 rounded bg-[#FFBA38]/25 hover:bg-[#FFBA38]/40 text-[#000000] text-[10px] font-bold cursor-pointer"
                             >
                               Pendiente Firmar
                             </button>
@@ -391,10 +391,10 @@ export const RecepcionModule: React.FC = () => {
                         </td>
                         <td className="p-3.5 text-center">
                           <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                            pat.status === 'Liquidado' ? 'bg-emerald-100 text-emerald-800' :
-                            pat.status === 'Alta Médica' ? 'bg-blue-100 text-blue-800' :
-                            pat.status === 'Recuperación' ? 'bg-purple-100 text-purple-800' :
-                            'bg-sky-100 text-sky-800'
+                            pat.status === 'Liquidado' ? 'bg-[#007D8F]/15 text-[#007D8F]' :
+                            pat.status === 'Alta Médica' ? 'bg-[#00838B]/15 text-[#00838B]' :
+                            pat.status === 'Recuperación' ? 'bg-[#FFBA38]/25 text-[#000000]' :
+                            'bg-slate-100 text-[#000000]'
                           }`}>
                             {pat.status}
                           </span>
@@ -402,7 +402,7 @@ export const RecepcionModule: React.FC = () => {
                         <td className="p-3.5 text-center">
                           <button
                             onClick={() => handleOpenBilling(pat)}
-                            className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-[11px] font-bold transition"
+                            className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-[#000000] rounded-lg text-[11px] font-bold transition cursor-pointer"
                           >
                             Ver Cuenta
                           </button>
@@ -421,8 +421,8 @@ export const RecepcionModule: React.FC = () => {
       {currentTab === 'consentimientos' && (
         <div className="space-y-4">
           <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-2xs">
-            <h2 className="text-sm font-bold text-slate-900 mb-2 flex items-center gap-2">
-              <PenTool className="w-4 h-4 text-sky-600" />
+            <h2 className="text-sm font-bold text-[#000000] mb-2 flex items-center gap-2">
+              <PenTool className="w-4 h-4 text-[#007D8F]" />
               Gestión de Consentimientos Informados y Aviso de Privacidad (NOM-004)
             </h2>
             <p className="text-xs text-slate-500 mb-4">
@@ -437,19 +437,19 @@ export const RecepcionModule: React.FC = () => {
                     setSelectedPatientForConsent(p);
                     setConsentWitness2(p.responsiblePerson);
                   }}
-                  className={`p-3 rounded-xl border text-left transition ${
+                  className={`p-3 rounded-xl border text-left transition cursor-pointer ${
                     selectedPatientForConsent?.id === p.id
-                      ? 'border-sky-500 bg-sky-50/80 shadow-2xs'
+                      ? 'border-[#007D8F] bg-[#007D8F]/10 shadow-2xs'
                       : 'border-slate-200 hover:border-slate-300 bg-slate-50/50'
                   }`}
                 >
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-mono font-bold text-teal-700">{p.expedienteNumber}</span>
-                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${p.hasInformedConsent ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`}>
+                    <span className="font-mono font-bold text-[#007D8F]">{p.expedienteNumber}</span>
+                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${p.hasInformedConsent ? 'bg-[#007D8F]/15 text-[#007D8F]' : 'bg-[#FFBA38]/25 text-[#000000]'}`}>
                       {p.hasInformedConsent ? 'Firmado' : 'Sin Firma'}
                     </span>
                   </div>
-                  <div className="mt-1 font-bold text-xs text-slate-900 truncate">{p.fullName}</div>
+                  <div className="mt-1 font-bold text-xs text-[#000000] truncate">{p.fullName}</div>
                   <div className="text-[11px] text-slate-500 truncate">Resp: {p.responsiblePerson}</div>
                 </button>
               ))}
@@ -459,14 +459,14 @@ export const RecepcionModule: React.FC = () => {
               <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-4 animate-in fade-in">
                 <div className="flex items-center justify-between border-b border-slate-200 pb-3">
                   <div>
-                    <h3 className="text-sm font-bold text-slate-900">
+                    <h3 className="text-sm font-bold text-[#000000]">
                       Documento Legal: Consentimiento para {selectedPatientForConsent.fullName}
                     </h3>
                     <p className="text-xs text-slate-500">
                       Expediente: {selectedPatientForConsent.expedienteNumber} | Domicilio: {selectedPatientForConsent.address}
                     </p>
                   </div>
-                  <span className="px-2.5 py-1 bg-teal-100 text-teal-800 rounded-lg text-xs font-bold">
+                  <span className="px-2.5 py-1 bg-[#007D8F]/15 text-[#007D8F] rounded-lg text-xs font-bold">
                     NOM-004-SSA3-2012
                   </span>
                 </div>
@@ -479,7 +479,7 @@ export const RecepcionModule: React.FC = () => {
                       placeholder="Ej: Colecistectomía Laparoscópica bajo Anestesia General"
                       value={consentProcedure}
                       onChange={(e) => setConsentProcedure(e.target.value)}
-                      className="mt-1 w-full px-3 py-2 border rounded-lg bg-white focus:ring-2 focus:ring-sky-500"
+                      className="mt-1 w-full px-3 py-2 border rounded-lg bg-white focus:ring-2 focus:ring-[#007D8F]"
                     />
                   </div>
 
@@ -490,7 +490,7 @@ export const RecepcionModule: React.FC = () => {
                       placeholder="Ej: Infección, sangrado, conversión quirúrgica, posibles reacciones farmacológicas"
                       value={consentRisks}
                       onChange={(e) => setConsentRisks(e.target.value)}
-                      className="mt-1 w-full px-3 py-2 border rounded-lg bg-white focus:ring-2 focus:ring-sky-500"
+                      className="mt-1 w-full px-3 py-2 border rounded-lg bg-white focus:ring-2 focus:ring-[#007D8F]"
                     />
                   </div>
                 </div>
@@ -549,13 +549,13 @@ export const RecepcionModule: React.FC = () => {
                 {/* Signature Pad */}
                 <div className="border border-slate-300 rounded-xl p-3 bg-white">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-bold text-slate-800">
+                    <span className="text-xs font-bold text-[#000000]">
                       Firma Digital del Paciente o Persona Responsable
                     </span>
                     <button
                       type="button"
                       onClick={clearCanvas}
-                      className="text-[11px] text-rose-600 hover:underline font-semibold"
+                      className="text-[11px] text-rose-600 hover:underline font-bold cursor-pointer"
                     >
                       Limpiar Trazo
                     </button>
@@ -580,13 +580,13 @@ export const RecepcionModule: React.FC = () => {
                 <div className="flex justify-end gap-2 pt-2">
                   <button
                     onClick={() => setSelectedPatientForConsent(null)}
-                    className="px-4 py-2 bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold"
+                    className="px-4 py-2 bg-slate-200 text-slate-700 rounded-xl text-xs font-bold cursor-pointer"
                   >
                     Cancelar
                   </button>
                   <button
                     onClick={handleSaveConsent}
-                    className="px-5 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-xs font-bold shadow-sm transition"
+                    className="px-5 py-2 bg-[#007D8F] hover:bg-[#00838B] text-white rounded-xl text-xs font-bold shadow-sm transition cursor-pointer"
                   >
                     Registrar y Sellar Consentimiento
                   </button>
@@ -615,19 +615,19 @@ export const RecepcionModule: React.FC = () => {
                     <button
                       key={p.id}
                       onClick={() => handleOpenBilling(p)}
-                      className={`w-full p-3 rounded-xl border text-left transition ${
+                      className={`w-full p-3 rounded-xl border text-left transition cursor-pointer ${
                         selectedPatientForBilling?.id === p.id
-                          ? 'border-emerald-500 bg-emerald-50/70 shadow-2xs'
+                          ? 'border-[#007D8F] bg-[#007D8F]/10 shadow-2xs'
                           : 'border-slate-200 hover:border-slate-300 bg-white'
                       }`}
                     >
                       <div className="flex items-center justify-between text-xs">
-                        <span className="font-mono font-bold text-teal-800">{p.expedienteNumber}</span>
-                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${saldo === 0 ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`}>
+                        <span className="font-mono font-bold text-[#007D8F]">{p.expedienteNumber}</span>
+                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${saldo === 0 ? 'bg-[#007D8F]/15 text-[#007D8F]' : 'bg-[#FFBA38]/25 text-[#000000]'}`}>
                           {saldo === 0 ? 'Liquidado' : `Saldo: $${saldo.toLocaleString()}`}
                         </span>
                       </div>
-                      <div className="mt-1 font-bold text-xs text-slate-900 truncate">{p.fullName}</div>
+                      <div className="mt-1 font-bold text-xs text-[#000000] truncate">{p.fullName}</div>
                       <div className="mt-1 flex items-center justify-between text-[11px] text-slate-500">
                         <span>Cuenta Total: ${p.totalAccount.toLocaleString()}</span>
                         <span>Pagado: ${p.paidAmount.toLocaleString()}</span>
@@ -644,10 +644,10 @@ export const RecepcionModule: React.FC = () => {
                 <>
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 gap-2">
                     <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-teal-700 bg-teal-50 px-2 py-0.5 rounded">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#007D8F] bg-[#007D8F]/10 px-2 py-0.5 rounded border border-[#007D8F]/30">
                         Estado de Cuenta Transparente
                       </span>
-                      <h2 className="text-base font-bold text-slate-900 mt-1">
+                      <h2 className="text-base font-bold text-[#000000] mt-1">
                         {selectedPatientForBilling.fullName}
                       </h2>
                       <p className="text-xs text-slate-500 font-mono">
@@ -656,7 +656,7 @@ export const RecepcionModule: React.FC = () => {
                     </div>
 
                     <div className="text-right">
-                      <div className="text-2xl font-extrabold text-slate-900">
+                      <div className="text-2xl font-extrabold text-[#000000]">
                         ${selectedPatientForBilling.totalAccount.toLocaleString('es-MX', { minimumFractionDigits: 2 })}
                       </div>
                       <div className="text-xs text-slate-500">
@@ -667,7 +667,7 @@ export const RecepcionModule: React.FC = () => {
 
                   {/* Consumed Supplies Breakdown with Lote and Caducidad */}
                   <div>
-                    <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">
+                    <h3 className="text-xs font-bold text-[#000000] uppercase tracking-wider mb-2">
                       Desglose Detallado de Insumos y Medicamentos Suministrados (Trazabilidad)
                     </h3>
                     <div className="border border-slate-200 rounded-xl overflow-hidden">
@@ -687,12 +687,12 @@ export const RecepcionModule: React.FC = () => {
                             .filter((c) => c.patientId === selectedPatientForBilling.id)
                             .map((item) => (
                               <tr key={item.id} className="hover:bg-slate-50/70">
-                                <td className="p-2.5 font-semibold text-slate-900">{item.name}</td>
-                                <td className="p-2.5 font-mono text-[11px] text-sky-800">{item.lote}</td>
+                                <td className="p-2.5 font-semibold text-[#000000]">{item.name}</td>
+                                <td className="p-2.5 font-mono text-[11px] text-[#00838B] font-bold">{item.lote}</td>
                                 <td className="p-2.5 text-slate-500">{item.caducidad}</td>
                                 <td className="p-2.5 text-center font-bold">{item.quantity}</td>
                                 <td className="p-2.5 text-right">${item.unitPrice.toLocaleString()}</td>
-                                <td className="p-2.5 text-right font-bold">${item.totalPrice.toLocaleString()}</td>
+                                <td className="p-2.5 text-right font-bold text-[#000000]">${item.totalPrice.toLocaleString()}</td>
                               </tr>
                             ))}
                           {consumedSupplies.filter((c) => c.patientId === selectedPatientForBilling.id).length === 0 && (
@@ -711,7 +711,7 @@ export const RecepcionModule: React.FC = () => {
                   <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div className="text-xs space-y-1">
                       <p className="text-slate-600">
-                        Total Pagado: <strong className="text-emerald-700">${selectedPatientForBilling.paidAmount.toLocaleString()}</strong>
+                        Total Pagado: <strong className="text-[#007D8F]">${selectedPatientForBilling.paidAmount.toLocaleString()}</strong>
                       </p>
                       <p className="text-slate-600">
                         Saldo Pendiente: <strong className="text-rose-700">${Math.max(0, selectedPatientForBilling.totalAccount - selectedPatientForBilling.paidAmount).toLocaleString()}</strong>
@@ -724,7 +724,7 @@ export const RecepcionModule: React.FC = () => {
                           setPaymentAmount(Math.max(0, selectedPatientForBilling.totalAccount - selectedPatientForBilling.paidAmount));
                           setShowPaymentModal(true);
                         }}
-                        className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm transition flex items-center gap-1.5"
+                        className="px-3.5 py-2 bg-[#007D8F] hover:bg-[#00838B] text-white rounded-xl text-xs font-bold shadow-sm transition flex items-center gap-1.5 cursor-pointer"
                       >
                         <DollarSign className="w-3.5 h-3.5" />
                         <span>Registrar Cobro</span>
@@ -732,9 +732,9 @@ export const RecepcionModule: React.FC = () => {
 
                       <button
                         onClick={() => setShowInvoiceModal(true)}
-                        className="px-3.5 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-bold shadow-sm transition flex items-center gap-1.5"
+                        className="px-3.5 py-2 bg-[#000000] hover:bg-slate-800 text-white rounded-xl text-xs font-bold shadow-sm transition flex items-center gap-1.5 cursor-pointer"
                       >
-                        <Receipt className="w-3.5 h-3.5" />
+                        <Receipt className="w-3.5 h-3.5 text-[#FFBA38]" />
                         <span>Emitir Factura SAT (CFDI 4.0)</span>
                       </button>
                     </div>
@@ -743,19 +743,19 @@ export const RecepcionModule: React.FC = () => {
                   {/* Invoices Generated for this Patient */}
                   {invoices.filter((i) => i.patientId === selectedPatientForBilling.id).length > 0 && (
                     <div className="pt-2">
-                      <h4 className="text-xs font-bold text-slate-800 mb-2">Facturas Fiscales Emitidas</h4>
+                      <h4 className="text-xs font-bold text-[#000000] mb-2">Facturas Fiscales Emitidas</h4>
                       <div className="space-y-2">
                         {invoices
                           .filter((i) => i.patientId === selectedPatientForBilling.id)
                           .map((inv) => (
-                            <div key={inv.id} className="p-3 rounded-xl bg-sky-50/70 border border-sky-200 text-xs flex items-center justify-between">
+                            <div key={inv.id} className="p-3 rounded-xl bg-[#007D8F]/10 border border-[#007D8F]/30 text-xs flex items-center justify-between">
                               <div>
-                                <span className="font-bold text-sky-950">{inv.folio}</span> • RFC: {inv.rfc}
+                                <span className="font-bold text-[#000000]">{inv.folio}</span> • RFC: {inv.rfc}
                                 <p className="text-[10px] text-slate-500 font-mono">UUID: {inv.satUuid}</p>
                               </div>
                               <div className="text-right">
-                                <span className="font-bold text-slate-900">${inv.total.toLocaleString()}</span>
-                                <div className="text-[10px] text-emerald-700 font-bold">Timbrado SAT CFDI 4.0</div>
+                                <span className="font-bold text-[#000000]">${inv.total.toLocaleString()}</span>
+                                <div className="text-[10px] text-[#007D8F] font-bold">Timbrado SAT CFDI 4.0</div>
                               </div>
                             </div>
                           ))}
@@ -782,14 +782,14 @@ export const RecepcionModule: React.FC = () => {
           <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200 mb-4">
               <div>
-                <h3 className="text-base font-bold text-slate-900">
+                <h3 className="text-base font-bold text-[#000000]">
                   Apertura de Expediente Clínico (NOM-004-SSA3-2012)
                 </h3>
                 <p className="text-xs text-slate-500">
                   Ficha de identificación obligatoria y persona responsable
                 </p>
               </div>
-              <span className="px-2 py-0.5 rounded bg-teal-100 text-teal-800 text-[11px] font-bold">
+              <span className="px-2 py-0.5 rounded bg-[#007D8F]/15 text-[#007D8F] text-[11px] font-bold">
                 Recepción
               </span>
             </div>
@@ -804,7 +804,7 @@ export const RecepcionModule: React.FC = () => {
                     value={newPatient.fullName}
                     onChange={(e) => setNewPatient({ ...newPatient, fullName: e.target.value })}
                     placeholder="Apellidos y Nombres"
-                    className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-teal-500"
+                    className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#007D8F]"
                   />
                 </div>
                 <div>
@@ -814,7 +814,7 @@ export const RecepcionModule: React.FC = () => {
                     required
                     value={newPatient.age}
                     onChange={(e) => setNewPatient({ ...newPatient, age: parseInt(e.target.value) || 0 })}
-                    className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-teal-500"
+                    className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#007D8F]"
                   />
                 </div>
               </div>
@@ -840,7 +840,7 @@ export const RecepcionModule: React.FC = () => {
                     value={newPatient.phone}
                     onChange={(e) => setNewPatient({ ...newPatient, phone: e.target.value })}
                     placeholder="81-xxxx-xxxx"
-                    className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-teal-500"
+                    className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#007D8F]"
                   />
                 </div>
                 <div>
@@ -868,7 +868,7 @@ export const RecepcionModule: React.FC = () => {
                   value={newPatient.address}
                   onChange={(e) => setNewPatient({ ...newPatient, address: e.target.value })}
                   placeholder="Av. Hidalgo #120, Col. Centro, Monterrey"
-                  className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-teal-500"
+                  className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#007D8F]"
                 />
               </div>
 
@@ -958,13 +958,13 @@ export const RecepcionModule: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowNewPatientModal(false)}
-                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-semibold"
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold cursor-pointer"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold shadow-sm"
+                  className="px-5 py-2 bg-[#007D8F] hover:bg-[#00838B] text-white rounded-xl font-bold shadow-sm cursor-pointer"
                 >
                   Registrar Paciente NOM-004
                 </button>
@@ -978,7 +978,7 @@ export const RecepcionModule: React.FC = () => {
       {showPaymentModal && selectedPatientForBilling && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
           <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-sm w-full p-6 text-xs">
-            <h3 className="text-base font-bold text-slate-900 mb-1">Registrar Cobro en Caja</h3>
+            <h3 className="text-base font-bold text-[#000000] mb-1">Registrar Cobro en Caja</h3>
             <p className="text-slate-500 mb-4">{selectedPatientForBilling.fullName}</p>
             
             <div className="space-y-3">
@@ -989,7 +989,7 @@ export const RecepcionModule: React.FC = () => {
                   step="0.01"
                   value={paymentAmount || ''}
                   onChange={(e) => setPaymentAmount(parseFloat(e.target.value) || 0)}
-                  className="mt-1 w-full px-3 py-2 text-sm font-bold border rounded-lg focus:ring-2 focus:ring-emerald-500"
+                  className="mt-1 w-full px-3 py-2 text-sm font-bold border rounded-lg focus:ring-2 focus:ring-[#007D8F]"
                 />
               </div>
 
@@ -997,14 +997,14 @@ export const RecepcionModule: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowPaymentModal(false)}
-                  className="px-3 py-2 rounded-lg bg-slate-100 text-slate-700 font-semibold"
+                  className="px-3 py-2 rounded-lg bg-slate-100 text-slate-700 font-bold cursor-pointer"
                 >
                   Cancelar
                 </button>
                 <button
                   type="button"
                   onClick={handleRegisterPayment}
-                  className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold"
+                  className="px-4 py-2 rounded-lg bg-[#007D8F] hover:bg-[#00838B] text-white font-bold cursor-pointer shadow-xs"
                 >
                   Confirmar Pago
                 </button>
@@ -1018,7 +1018,7 @@ export const RecepcionModule: React.FC = () => {
       {showInvoiceModal && selectedPatientForBilling && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
           <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-lg w-full p-6 text-xs max-h-[90vh] overflow-y-auto">
-            <h3 className="text-base font-bold text-slate-900 mb-1">
+            <h3 className="text-base font-bold text-[#000000] mb-1">
               Emisión de Factura Oficial SAT (CFDI 4.0)
             </h3>
             <p className="text-slate-500 mb-4">
@@ -1088,20 +1088,20 @@ export const RecepcionModule: React.FC = () => {
 
               <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex justify-between font-bold">
                 <span>Monto Total a Facturar:</span>
-                <span className="text-slate-900">${selectedPatientForBilling.totalAccount.toLocaleString()} MXN</span>
+                <span className="text-[#000000]">${selectedPatientForBilling.totalAccount.toLocaleString()} MXN</span>
               </div>
 
               <div className="flex justify-end gap-2 pt-2">
                 <button
                   type="button"
                   onClick={() => setShowInvoiceModal(false)}
-                  className="px-3 py-2 rounded-lg bg-slate-100 text-slate-700 font-semibold"
+                  className="px-3 py-2 rounded-lg bg-slate-100 text-slate-700 font-bold cursor-pointer"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-bold"
+                  className="px-4 py-2 rounded-lg bg-[#007D8F] hover:bg-[#00838B] text-white font-bold cursor-pointer shadow-xs"
                 >
                   Generar y Timbrar CFDI 4.0
                 </button>

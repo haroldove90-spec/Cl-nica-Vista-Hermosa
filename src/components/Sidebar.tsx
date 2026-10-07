@@ -123,18 +123,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 }}
                 className={`w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-xs font-semibold transition text-left ${
                   isActive
-                    ? 'bg-sky-50 text-sky-800 border border-sky-200/80 shadow-2xs font-bold'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                    ? 'bg-[#007D8F]/10 text-[#007D8F] border border-[#007D8F]/30 shadow-2xs font-extrabold'
+                    : 'text-slate-600 hover:text-[#000000] hover:bg-slate-50'
                 }`}
               >
                 <div className="flex items-center gap-2.5 truncate">
-                  <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-sky-600' : 'text-slate-400'}`} />
+                  <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-[#007D8F]' : 'text-slate-400'}`} />
                   <span className="truncate">{m.label}</span>
                 </div>
                 {m.tag && (
                   <span
                     className={`text-[10px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider shrink-0 ${
-                      isActive ? 'bg-sky-200/60 text-sky-900' : 'bg-slate-100 text-slate-500'
+                      isActive ? 'bg-[#007D8F] text-white' : 'bg-slate-100 text-slate-500'
                     }`}
                   >
                     {m.tag}
@@ -145,7 +145,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           })}
 
           {/* Quick Access Tools */}
-          <div className="pt-6 px-3 pb-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+          <div className="pt-6 px-3 pb-2 text-[11px] font-bold uppercase tracking-wider text-[#000000]">
             Accesos Globales
           </div>
 
@@ -154,9 +154,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
               onOpenWorkflow();
               setIsOpen(false);
             }}
-            className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-medium text-slate-700 hover:bg-slate-50 transition"
+            className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#007D8F] hover:bg-slate-50 transition"
           >
-            <Workflow className="w-4 h-4 text-sky-600" />
+            <Workflow className="w-4 h-4 text-[#007D8F]" />
             <span>Flujo Conforme a Norma</span>
           </button>
 
@@ -165,9 +165,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
               onOpenDataModal();
               setIsOpen(false);
             }}
-            className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-medium text-slate-700 hover:bg-slate-50 transition"
+            className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#00838B] hover:bg-slate-50 transition"
           >
-            <Database className="w-4 h-4 text-emerald-600" />
+            <Database className="w-4 h-4 text-[#00838B]" />
             <span>Gestión de Datos & Supabase</span>
           </button>
         </div>
@@ -176,12 +176,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div className="p-4 border-t border-slate-100 bg-slate-50/70">
           <div className="flex items-center justify-between">
             <div className="text-[11px] text-slate-500">
-              <p className="font-semibold text-slate-700">Clínica Vista Hermosa</p>
+              <p className="font-extrabold text-[#000000]">Clínica Vista Hermosa</p>
               <p>Norma NOM-004 / COFEPRIS</p>
             </div>
             <button
               onClick={() => setCurrentRole(null)}
-              className="text-xs font-bold text-sky-700 hover:underline"
+              className="text-xs font-extrabold text-[#007D8F] hover:text-[#00838B] hover:underline"
             >
               Cambiar Rol
             </button>

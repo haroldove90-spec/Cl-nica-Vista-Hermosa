@@ -72,13 +72,13 @@ export const BottomBar: React.FC = () => {
               onClick={() => setActiveModule(item.id)}
               className={`flex flex-col items-center justify-center flex-1 py-1 px-1 transition-all rounded-xl active:scale-95 ${
                 isActive
-                  ? 'text-sky-700 font-bold'
-                  : 'text-slate-500 hover:text-slate-800 font-medium'
+                  ? 'text-[#007D8F] font-extrabold'
+                  : 'text-slate-500 hover:text-[#000000] font-semibold'
               }`}
             >
               <div
                 className={`p-1.5 rounded-xl transition ${
-                  isActive ? 'bg-sky-100 text-sky-700 shadow-2xs' : 'text-slate-500'
+                  isActive ? 'bg-[#007D8F] text-white shadow-xs' : 'text-slate-500'
                 }`}
               >
                 <Icon className="w-5 h-5 shrink-0" />

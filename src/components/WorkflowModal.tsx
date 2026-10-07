@@ -29,9 +29,9 @@ export const WorkflowModal: React.FC<WorkflowModalProps> = ({ isOpen, onClose })
       title: '1. Ingreso del Paciente',
       role: 'Recepción y Caja',
       roleId: 'recepcion' as const,
-      moduleId: 'default',
+      moduleId: 'ficha',
       icon: UserPlus,
-      color: 'text-teal-600 bg-teal-50 border-teal-200',
+      color: 'text-[#007D8F] bg-[#007D8F]/10 border-[#007D8F]/30',
       description: 'Recepción da de alta la ficha de identificación bajo la NOM-004 y registra la firma del Aviso de Privacidad y Consentimiento Informado para cirugía con testigos.',
       norma: 'NOM-004-SSA3-2012 (Numeral 5 y 6)',
     },
@@ -40,9 +40,9 @@ export const WorkflowModal: React.FC<WorkflowModalProps> = ({ isOpen, onClose })
       title: '2. Atención Médica y Cirugía',
       role: 'Personal Médico y Quirófano',
       roleId: 'medico' as const,
-      moduleId: 'default',
+      moduleId: 'notas',
       icon: Stethoscope,
-      color: 'text-sky-600 bg-sky-50 border-sky-200',
+      color: 'text-[#00838B] bg-[#00838B]/10 border-[#00838B]/30',
       description: 'El cirujano realiza el procedimiento, anota el reporte quirúrgico validado con su Cédula Profesional e Institución que expidió el título, diagnóstico CIE-10 y hallazgos.',
       norma: 'NOM-004-SSA3-2012 (Numeral 8 - Notas Quirúrgicas)',
     },
@@ -53,7 +53,7 @@ export const WorkflowModal: React.FC<WorkflowModalProps> = ({ isOpen, onClose })
       roleId: 'medico' as const,
       moduleId: 'consumo',
       icon: Boxes,
-      color: 'text-purple-600 bg-purple-50 border-purple-200',
+      color: 'text-[#007D8F] bg-[#007D8F]/10 border-[#007D8F]/30',
       description: 'Cada medicamento e insumo aplicado se descarga automáticamente del inventario registrando su Lote y Caducidad, sumándose en tiempo real a la cuenta del paciente.',
       norma: 'COFEPRIS (Reglamento de Insumos para la Salud)',
     },
@@ -62,9 +62,9 @@ export const WorkflowModal: React.FC<WorkflowModalProps> = ({ isOpen, onClose })
       title: '4. Enfermería y Recuperación',
       role: 'Enfermería / Recuperación',
       roleId: 'enfermeria' as const,
-      moduleId: 'default',
+      moduleId: 'hoja_enfermeria',
       icon: HeartPulse,
-      color: 'text-emerald-600 bg-emerald-50 border-emerald-200',
+      color: 'text-[#00838B] bg-[#00838B]/10 border-[#00838B]/30',
       description: 'Enfermería registra signos vitales por horario, balance hídrico, administración de fármacos por horario e insumos menores utilizados en recuperación.',
       norma: 'NOM-004-SSA3-2012 (Numeral 9 - Hoja de Enfermería)',
     },
@@ -73,9 +73,9 @@ export const WorkflowModal: React.FC<WorkflowModalProps> = ({ isOpen, onClose })
       title: '5. Cierre y Alta Médica',
       role: 'Personal Médico / Caja',
       roleId: 'medico' as const,
-      moduleId: 'default',
+      moduleId: 'notas',
       icon: FileCheck2,
-      color: 'text-blue-600 bg-blue-50 border-blue-200',
+      color: 'text-[#007D8F] bg-[#007D8F]/10 border-[#007D8F]/30',
       description: 'Se emite la nota de egreso / alta médica con plan terapéutico. Caja revisa el desglose total y transparente de servicios + insumos consumidos.',
       norma: 'NOM-004-SSA3-2012 (Numeral 10 - Nota de Egreso)',
     },
@@ -86,7 +86,7 @@ export const WorkflowModal: React.FC<WorkflowModalProps> = ({ isOpen, onClose })
       roleId: 'recepcion' as const,
       moduleId: 'cobranza',
       icon: Receipt,
-      color: 'text-amber-600 bg-amber-50 border-amber-200',
+      color: 'text-[#000000] bg-[#FFBA38]/25 border-[#FFBA38]/50',
       description: 'El paciente liquida su cuenta, se le entrega recibo transparente con desglose de insumos y se genera su factura fiscal electrónica oficial SAT CFDI 4.0 con UUID.',
       norma: 'Código Fiscal de la Federación (SAT CFDI 4.0)',
     },
@@ -97,7 +97,7 @@ export const WorkflowModal: React.FC<WorkflowModalProps> = ({ isOpen, onClose })
       roleId: 'direccion' as const,
       moduleId: 'auditoria',
       icon: ShieldCheck,
-      color: 'text-indigo-600 bg-indigo-50 border-indigo-200',
+      color: 'text-white bg-[#000000] border-[#000000]',
       description: 'Toda la información médica y administrativa queda bloqueada criptográficamente en bitácora inalterable (hashes SHA-256) para cumplir con los 5 años de custodia exigidos por COFEPRIS.',
       norma: 'COFEPRIS y NOM-004 (Custodia mínima 5 años)',
     },
@@ -116,11 +116,11 @@ export const WorkflowModal: React.FC<WorkflowModalProps> = ({ isOpen, onClose })
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-slate-100 bg-slate-50/80">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-sky-100 text-sky-700">
+            <div className="p-2.5 rounded-xl bg-[#007D8F]/15 text-[#007D8F]">
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="text-base sm:text-lg font-bold text-slate-900">
+              <h2 className="text-base sm:text-lg font-extrabold text-[#000000]">
                 Flujo de Trabajo Conforme a Norma (COFEPRIS & NOM-004)
               </h2>
               <p className="text-xs text-slate-500">
@@ -148,11 +148,11 @@ export const WorkflowModal: React.FC<WorkflowModalProps> = ({ isOpen, onClose })
                   </div>
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
-                      <h3 className="text-sm font-bold text-slate-900">{s.title}</h3>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-bold">
+                      <h3 className="text-sm font-extrabold text-[#000000]">{s.title}</h3>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-bold">
                         {s.role}
                       </span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 font-bold border border-sky-200">
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#007D8F]/10 text-[#007D8F] font-bold border border-[#007D8F]/30">
                         {s.norma}
                       </span>
                     </div>
@@ -164,7 +164,7 @@ export const WorkflowModal: React.FC<WorkflowModalProps> = ({ isOpen, onClose })
 
                 <button
                   onClick={() => handleGoToStep(s.roleId, s.moduleId)}
-                  className="self-end sm:self-center shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 text-sky-700 text-xs font-semibold border border-sky-200 transition"
+                  className="self-end sm:self-center shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#007D8F]/10 hover:bg-[#007D8F]/20 text-[#007D8F] text-xs font-bold border border-[#007D8F]/30 transition"
                 >
                   <span>Ir al Módulo</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -175,14 +175,14 @@ export const WorkflowModal: React.FC<WorkflowModalProps> = ({ isOpen, onClose })
         </div>
 
         {/* Footer Summary */}
-        <div className="p-4 border-t border-slate-100 bg-slate-50 flex items-center justify-between text-xs text-slate-500">
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+        <div className="p-4 border-t border-slate-100 bg-slate-50 flex items-center justify-between text-xs text-slate-600">
+          <div className="flex items-center gap-2 font-medium">
+            <CheckCircle2 className="w-4 h-4 text-[#007D8F]" />
             <span>{patients.length} pacientes registrados en circuito | {auditLogs.length} eventos en bitácora inalterable</span>
           </div>
           <button
             onClick={onClose}
-            className="px-4 py-2 rounded-xl bg-sky-600 text-white font-semibold hover:bg-sky-700 transition"
+            className="px-4 py-2 rounded-xl bg-[#007D8F] hover:bg-[#00838B] text-white font-bold transition shadow-xs"
           >
             Cerrar Flujo
           </button>

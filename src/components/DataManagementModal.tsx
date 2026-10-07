@@ -206,11 +206,11 @@ CREATE TABLE IF NOT EXISTS public.medicamentos_controlados (
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-slate-100 bg-slate-50/70">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-sky-100 text-sky-700">
+            <div className="p-2 rounded-xl bg-[#007D8F]/15 text-[#007D8F]">
               <Database className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-slate-900">
+              <h2 className="text-base font-extrabold text-[#000000]">
                 Gestión de Datos & Supabase
               </h2>
               <p className="text-xs text-slate-500">
@@ -232,8 +232,8 @@ CREATE TABLE IF NOT EXISTS public.medicamentos_controlados (
             onClick={() => setActiveTab('local')}
             className={`pb-2.5 text-xs font-bold border-b-2 transition ${
               activeTab === 'local'
-                ? 'border-sky-600 text-sky-700'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
+                ? 'border-[#007D8F] text-[#007D8F]'
+                : 'border-transparent text-slate-500 hover:text-[#000000]'
             }`}
           >
             Limpieza de Datos de Muestra
@@ -242,8 +242,8 @@ CREATE TABLE IF NOT EXISTS public.medicamentos_controlados (
             onClick={() => setActiveTab('supabase')}
             className={`pb-2.5 text-xs font-bold border-b-2 transition flex items-center gap-1.5 ${
               activeTab === 'supabase'
-                ? 'border-sky-600 text-sky-700'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
+                ? 'border-[#007D8F] text-[#007D8F]'
+                : 'border-transparent text-slate-500 hover:text-[#000000]'
             }`}
           >
             <Server className="w-3.5 h-3.5" />
@@ -260,14 +260,14 @@ CREATE TABLE IF NOT EXISTS public.medicamentos_controlados (
               <div
                 className={`p-4 rounded-xl border flex items-start gap-3 ${
                   isSampleDataCleared
-                    ? 'bg-emerald-50/80 border-emerald-200 text-emerald-900'
-                    : 'bg-amber-50/80 border-amber-200 text-amber-900'
+                    ? 'bg-[#007D8F]/10 border-[#007D8F]/30 text-[#000000]'
+                    : 'bg-[#FFBA38]/20 border-[#FFBA38]/50 text-[#000000]'
                 }`}
               >
                 {isSampleDataCleared ? (
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-5 h-5 text-[#007D8F] shrink-0 mt-0.5" />
                 ) : (
-                  <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                  <AlertTriangle className="w-5 h-5 text-[#000000] shrink-0 mt-0.5" />
                 )}
                 <div className="text-xs space-y-1">
                   <p className="font-bold">
@@ -286,19 +286,19 @@ CREATE TABLE IF NOT EXISTS public.medicamentos_controlados (
               {/* Counts Breakdown */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
                 <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
-                  <div className="text-lg font-bold text-slate-800">{patients.length}</div>
+                  <div className="text-lg font-bold text-[#000000]">{patients.length}</div>
                   <div className="text-[11px] text-slate-500">Pacientes</div>
                 </div>
                 <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
-                  <div className="text-lg font-bold text-slate-800">{inventory.length}</div>
+                  <div className="text-lg font-bold text-[#000000]">{inventory.length}</div>
                   <div className="text-[11px] text-slate-500">Insumos/Lotes</div>
                 </div>
                 <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
-                  <div className="text-lg font-bold text-slate-800">{medicalNotes.length}</div>
+                  <div className="text-lg font-bold text-[#000000]">{medicalNotes.length}</div>
                   <div className="text-[11px] text-slate-500">Notas NOM-004</div>
                 </div>
                 <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
-                  <div className="text-lg font-bold text-slate-800">{auditLogs.length}</div>
+                  <div className="text-lg font-bold text-[#000000]">{auditLogs.length}</div>
                   <div className="text-[11px] text-slate-500">Bitácora</div>
                 </div>
               </div>
@@ -307,18 +307,18 @@ CREATE TABLE IF NOT EXISTS public.medicamentos_controlados (
               <div className="pt-2 flex flex-col sm:flex-row gap-3">
                 <button
                   onClick={handleClearLocal}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-rose-600 text-white font-semibold text-xs hover:bg-rose-700 shadow-sm transition"
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#000000] text-white font-bold text-xs hover:bg-slate-800 shadow-sm transition cursor-pointer"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <Trash2 className="w-4 h-4 text-[#FFBA38]" />
                   <span>Borrar Datos de Muestra de Todo el Sistema</span>
                 </button>
 
                 {isSampleDataCleared && (
                   <button
                     onClick={handleRestoreLocal}
-                    className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 text-slate-700 font-semibold text-xs hover:bg-slate-200 border border-slate-300 transition"
+                    className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs hover:bg-slate-200 border border-slate-300 transition cursor-pointer"
                   >
-                    <RotateCcw className="w-4 h-4" />
+                    <RotateCcw className="w-4 h-4 text-[#007D8F]" />
                     <span>Restaurar Datos de Prueba</span>
                   </button>
                 )}
@@ -327,9 +327,9 @@ CREATE TABLE IF NOT EXISTS public.medicamentos_controlados (
           ) : (
             <div className="space-y-4 text-xs">
               
-              <div className="p-3.5 rounded-xl bg-sky-50 border border-sky-200 text-sky-950">
+              <div className="p-3.5 rounded-xl bg-[#007D8F]/10 border border-[#007D8F]/30 text-[#000000]">
                 <p className="font-bold flex items-center gap-1.5">
-                  <Database className="w-4 h-4 text-sky-600" />
+                  <Database className="w-4 h-4 text-[#007D8F]" />
                   Integración y Borrado Directo en Supabase
                 </p>
                 <p className="mt-1 text-slate-600">
@@ -348,7 +348,7 @@ CREATE TABLE IF NOT EXISTS public.medicamentos_controlados (
                     value={supabaseUrl}
                     onChange={(e) => setSupabaseUrl(e.target.value)}
                     placeholder="https://your-project.supabase.co"
-                    className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none"
+                    className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-[#007D8F] focus:outline-none"
                   />
                 </div>
 
@@ -361,14 +361,14 @@ CREATE TABLE IF NOT EXISTS public.medicamentos_controlados (
                     value={supabaseKey}
                     onChange={(e) => setSupabaseKey(e.target.value)}
                     placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6..."
-                    className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none font-mono"
+                    className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-[#007D8F] focus:outline-none font-mono"
                   />
                 </div>
 
                 <div className="flex gap-2">
                   <button
                     type="submit"
-                    className="px-4 py-2 rounded-lg bg-sky-600 text-white font-semibold hover:bg-sky-700 transition"
+                    className="px-4 py-2 rounded-lg bg-[#007D8F] text-white font-bold hover:bg-[#00838B] transition cursor-pointer"
                   >
                     Guardar Conexión
                   </button>
@@ -377,16 +377,16 @@ CREATE TABLE IF NOT EXISTS public.medicamentos_controlados (
                     type="button"
                     onClick={handlePurgeSupabase}
                     disabled={isPurging}
-                    className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-rose-600 text-white font-semibold hover:bg-rose-700 transition disabled:opacity-50"
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#000000] text-white font-bold hover:bg-slate-800 transition disabled:opacity-50 cursor-pointer"
                   >
-                    <Trash2 className="w-3.5 h-3.5" />
+                    <Trash2 className="w-3.5 h-3.5 text-[#FFBA38]" />
                     <span>{isPurging ? 'Purgando...' : 'Purgar Registros en Supabase'}</span>
                   </button>
                 </div>
               </form>
 
               {purgeStatus && (
-                <div className="p-3 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-medium">
+                <div className="p-3 rounded-lg bg-[#007D8F]/10 text-[#007D8F] border border-[#007D8F]/30 text-xs font-bold">
                   {purgeStatus}
                 </div>
               )}
@@ -394,27 +394,27 @@ CREATE TABLE IF NOT EXISTS public.medicamentos_controlados (
               {/* SQL Schema Copy */}
               <div className="pt-2 border-t border-slate-200">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-bold text-slate-800">
+                  <span className="font-bold text-[#000000]">
                     Script SQL para Tablas COFEPRIS / NOM-004 en Supabase
                   </span>
                   <button
                     onClick={copySqlToClipboard}
-                    className="flex items-center gap-1 text-sky-700 font-bold hover:underline"
+                    className="flex items-center gap-1 text-[#007D8F] hover:text-[#00838B] font-bold hover:underline cursor-pointer"
                   >
                     {copiedSql ? (
                       <>
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                        <span className="text-emerald-700">¡Copiado!</span>
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#007D8F]" />
+                        <span className="text-[#007D8F]">¡Copiado!</span>
                       </>
                     ) : (
                       <>
-                        <Copy className="w-3.5 h-3.5" />
+                        <Copy className="w-3.5 h-3.5 text-[#007D8F]" />
                         <span>Copiar SQL</span>
                       </>
                     )}
                   </button>
                 </div>
-                <pre className="p-3 bg-slate-900 text-slate-100 rounded-lg text-[10px] max-h-40 overflow-y-auto font-mono">
+                <pre className="p-3 bg-[#000000] text-slate-100 rounded-lg text-[10px] max-h-40 overflow-y-auto font-mono">
                   {sqlSchema}
                 </pre>
               </div>

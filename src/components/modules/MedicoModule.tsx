@@ -133,11 +133,11 @@ export const MedicoModule: React.FC = () => {
       {/* Banner */}
       <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="p-3 rounded-xl bg-sky-100 text-sky-800">
+          <div className="p-3 rounded-xl bg-[#007D8F]/10 text-[#007D8F]">
             <Stethoscope className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-lg sm:text-xl font-bold text-slate-900">
+            <h1 className="text-lg sm:text-xl font-extrabold text-[#000000]">
               Personal Médico y Quirófano
             </h1>
             <p className="text-xs text-slate-500">
@@ -151,7 +151,7 @@ export const MedicoModule: React.FC = () => {
           <button
             onClick={() => setActiveModule('notas')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              currentTab === 'notas' ? 'bg-white text-sky-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'notas' ? 'bg-[#007D8F] text-white shadow-2xs font-bold' : 'text-slate-600 hover:text-[#000000]'
             }`}
           >
             <FileText className="w-3.5 h-3.5" />
@@ -160,7 +160,7 @@ export const MedicoModule: React.FC = () => {
           <button
             onClick={() => setActiveModule('consumo')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              currentTab === 'consumo' ? 'bg-white text-purple-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'consumo' ? 'bg-[#007D8F] text-white shadow-2xs font-bold' : 'text-slate-600 hover:text-[#000000]'
             }`}
           >
             <PackageCheck className="w-3.5 h-3.5" />
@@ -176,7 +176,7 @@ export const MedicoModule: React.FC = () => {
             Paciente Activo en Quirófano / Hospitalización
           </span>
           {selectedPatient && (
-            <span className="text-xs font-mono font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded border border-sky-200">
+            <span className="text-xs font-mono font-bold text-[#007D8F] bg-[#007D8F]/10 px-2 py-0.5 rounded border border-[#007D8F]/30">
               {selectedPatient.expedienteNumber}
             </span>
           )}
@@ -187,14 +187,14 @@ export const MedicoModule: React.FC = () => {
             <button
               key={pat.id}
               onClick={() => setSelectedPatientId(pat.id)}
-              className={`px-3.5 py-2 rounded-xl text-xs font-semibold text-left shrink-0 transition border ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold text-left shrink-0 transition border cursor-pointer ${
                 selectedPatient?.id === pat.id
-                  ? 'bg-sky-600 text-white border-sky-600 shadow-sm'
+                  ? 'bg-[#007D8F] text-white border-[#007D8F] shadow-sm'
                   : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
               }`}
             >
               <div className="font-bold truncate max-w-[180px]">{pat.fullName}</div>
-              <div className={`text-[10px] ${selectedPatient?.id === pat.id ? 'text-sky-100' : 'text-slate-400'}`}>
+              <div className={`text-[10px] ${selectedPatient?.id === pat.id ? 'text-slate-100' : 'text-slate-400'}`}>
                 {pat.service} • {pat.bedNumber}
               </div>
             </button>
@@ -212,7 +212,7 @@ export const MedicoModule: React.FC = () => {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-sm font-bold text-slate-900">
+                  <h2 className="text-sm font-bold text-[#000000]">
                     Expediente Clínico Electrónico de {selectedPatient.fullName}
                   </h2>
                   <p className="text-xs text-slate-500">
@@ -221,7 +221,7 @@ export const MedicoModule: React.FC = () => {
                 </div>
                 <button
                   onClick={() => setShowNoteModal(true)}
-                  className="flex items-center gap-1.5 px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-bold shadow-sm transition"
+                  className="flex items-center gap-1.5 px-4 py-2 bg-[#007D8F] hover:bg-[#00838B] text-white rounded-xl text-xs font-bold shadow-sm transition cursor-pointer"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Elaborar Nota Médica</span>
@@ -239,23 +239,23 @@ export const MedicoModule: React.FC = () => {
                     >
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 gap-2">
                         <div className="flex items-center gap-2">
-                          <span className="px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-100 text-sky-800">
+                          <span className="px-2.5 py-1 rounded-lg text-xs font-bold bg-[#007D8F]/15 text-[#007D8F]">
                             Nota: {note.noteType}
                           </span>
                           <span className="text-xs text-slate-500 font-mono">{note.createdAt}</span>
                         </div>
-                        <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
-                          <Lock className="w-3.5 h-3.5" />
+                        <div className="flex items-center gap-2 text-xs font-bold text-[#007D8F] bg-[#007D8F]/10 px-2.5 py-1 rounded-lg border border-[#007D8F]/30">
+                          <Lock className="w-3.5 h-3.5 text-[#007D8F]" />
                           <span>Bloqueada inalterable (NOM-004)</span>
                         </div>
                       </div>
 
                       {/* Doctor Mandatory Credentials (NOM-004) */}
                       <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 text-xs">
-                        <div className="flex items-center gap-2 text-slate-900 font-bold">
-                          <UserCheck className="w-4 h-4 text-sky-700" />
+                        <div className="flex items-center gap-2 text-[#000000] font-bold">
+                          <UserCheck className="w-4 h-4 text-[#007D8F]" />
                           <span>{note.doctorName}</span>
-                          <span className="text-sky-800 font-mono font-bold">Céd. Prof: {note.doctorCedula}</span>
+                          <span className="text-[#00838B] font-mono font-bold">Céd. Prof: {note.doctorCedula}</span>
                         </div>
                         <p className="mt-1 text-[11px] text-slate-600">
                           Institución que expidió el título: <strong>{note.doctorInstitution}</strong>
@@ -313,7 +313,7 @@ export const MedicoModule: React.FC = () => {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-sm font-bold text-slate-900">
+                  <h2 className="text-sm font-bold text-[#000000]">
                     Hoja de Consumo y Medicación Aplicada en Quirófano
                   </h2>
                   <p className="text-xs text-slate-500">
@@ -322,9 +322,9 @@ export const MedicoModule: React.FC = () => {
                 </div>
                 <button
                   onClick={() => setShowSupplyModal(true)}
-                  className="flex items-center gap-1.5 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold shadow-sm transition"
+                  className="flex items-center gap-1.5 px-4 py-2 bg-[#000000] hover:bg-slate-800 text-white rounded-xl text-xs font-bold shadow-sm transition cursor-pointer"
                 >
-                  <Plus className="w-4 h-4" />
+                  <Plus className="w-4 h-4 text-[#FFBA38]" />
                   <span>Aplicar Insumo / Medicamento</span>
                 </button>
               </div>
@@ -351,13 +351,13 @@ export const MedicoModule: React.FC = () => {
                         .filter((c) => c.patientId === selectedPatient.id)
                         .map((c) => (
                           <tr key={c.id} className="hover:bg-slate-50/70">
-                            <td className="p-3 font-bold text-slate-900">{c.name}</td>
-                            <td className="p-3 font-mono font-bold text-purple-700">{c.lote}</td>
+                            <td className="p-3 font-bold text-[#000000]">{c.name}</td>
+                            <td className="p-3 font-mono font-bold text-[#00838B]">{c.lote}</td>
                             <td className="p-3 text-slate-500">{c.caducidad}</td>
                             <td className="p-3">{c.dose || 'N/A'}</td>
-                            <td className="p-3 text-center font-bold text-slate-900">{c.quantity}</td>
+                            <td className="p-3 text-center font-bold text-[#000000]">{c.quantity}</td>
                             <td className="p-3 text-right">${c.unitPrice.toLocaleString()}</td>
-                            <td className="p-3 text-right font-bold text-slate-900">${c.totalPrice.toLocaleString()}</td>
+                            <td className="p-3 text-right font-bold text-[#000000]">${c.totalPrice.toLocaleString()}</td>
                             <td className="p-3 text-slate-600">{c.appliedBy}</td>
                             <td className="p-3 font-mono text-[11px] text-slate-400">{c.appliedAt}</td>
                           </tr>
@@ -384,14 +384,14 @@ export const MedicoModule: React.FC = () => {
           <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-2xl w-full p-6 text-xs max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200 mb-4">
               <div>
-                <h3 className="text-base font-bold text-slate-900">
+                <h3 className="text-base font-bold text-[#000000]">
                   Captura de Nota Médica / Quirúrgica (NOM-004-SSA3-2012)
                 </h3>
                 <p className="text-slate-500">
                   Paciente: {selectedPatient.fullName} ({selectedPatient.expedienteNumber})
                 </p>
               </div>
-              <span className="px-2 py-0.5 rounded bg-sky-100 text-sky-800 font-bold">
+              <span className="px-2 py-0.5 rounded bg-[#007D8F]/15 text-[#007D8F] font-bold">
                 Cédula Requerida
               </span>
             </div>
@@ -414,8 +414,8 @@ export const MedicoModule: React.FC = () => {
               </div>
 
               {/* Obligatory Doctor Info */}
-              <div className="p-3 bg-sky-50/60 rounded-xl border border-sky-200 space-y-3">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-sky-900">
+              <div className="p-3 bg-[#007D8F]/10 rounded-xl border border-[#007D8F]/30 space-y-3">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#000000]">
                   Datos Obligatorios del Médico (NOM-004 Numeral 5)
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -500,13 +500,13 @@ export const MedicoModule: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowNoteModal(false)}
-                  className="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl font-semibold"
+                  className="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl font-bold cursor-pointer"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl font-bold shadow-sm"
+                  className="px-5 py-2 bg-[#007D8F] hover:bg-[#00838B] text-white rounded-xl font-bold shadow-sm cursor-pointer"
                 >
                   Firmar y Bloquear Nota (NOM-004)
                 </button>
@@ -520,7 +520,7 @@ export const MedicoModule: React.FC = () => {
       {showSupplyModal && selectedPatient && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
           <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-lg w-full p-6 text-xs max-h-[90vh] overflow-y-auto">
-            <h3 className="text-base font-bold text-slate-900 mb-1">
+            <h3 className="text-base font-bold text-[#000000] mb-1">
               Asignación de Medicamento o Insumo al Paciente
             </h3>
             <p className="text-slate-500 mb-4">
@@ -595,13 +595,13 @@ export const MedicoModule: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowSupplyModal(false)}
-                  className="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl font-semibold"
+                  className="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl font-bold cursor-pointer"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold shadow-sm"
+                  className="px-5 py-2 bg-[#007D8F] hover:bg-[#00838B] text-white rounded-xl font-bold shadow-sm cursor-pointer"
                 >
                   Confirmar Suministro y Cargar a Cuenta
                 </button>

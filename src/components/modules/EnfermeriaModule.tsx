@@ -135,11 +135,11 @@ export const EnfermeriaModule: React.FC = () => {
       {/* Banner */}
       <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="p-3 rounded-xl bg-emerald-100 text-emerald-800">
+          <div className="p-3 rounded-xl bg-[#007D8F]/10 text-[#007D8F]">
             <HeartPulse className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-lg sm:text-xl font-bold text-slate-900">
+            <h1 className="text-lg sm:text-xl font-extrabold text-[#000000]">
               Enfermería y Recuperación Post-Quirúrgica
             </h1>
             <p className="text-xs text-slate-500">
@@ -153,7 +153,7 @@ export const EnfermeriaModule: React.FC = () => {
           <button
             onClick={() => setActiveModule('hoja_enfermeria')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              currentTab === 'hoja_enfermeria' ? 'bg-white text-emerald-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'hoja_enfermeria' ? 'bg-[#007D8F] text-white shadow-2xs font-bold' : 'text-slate-600 hover:text-[#000000]'
             }`}
           >
             <Activity className="w-3.5 h-3.5" />
@@ -162,7 +162,7 @@ export const EnfermeriaModule: React.FC = () => {
           <button
             onClick={() => setActiveModule('insumos_menores')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              currentTab === 'insumos_menores' ? 'bg-white text-teal-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'insumos_menores' ? 'bg-[#007D8F] text-white shadow-2xs font-bold' : 'text-slate-600 hover:text-[#000000]'
             }`}
           >
             <Syringe className="w-3.5 h-3.5" />
@@ -181,14 +181,14 @@ export const EnfermeriaModule: React.FC = () => {
             <button
               key={pat.id}
               onClick={() => setSelectedPatientId(pat.id)}
-              className={`px-3.5 py-2 rounded-xl text-xs font-semibold text-left shrink-0 transition border ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold text-left shrink-0 transition border cursor-pointer ${
                 selectedPatient?.id === pat.id
-                  ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                  ? 'bg-[#007D8F] text-white border-[#007D8F] shadow-sm'
                   : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
               }`}
             >
               <div className="font-bold truncate max-w-[180px]">{pat.fullName}</div>
-              <div className={`text-[10px] ${selectedPatient?.id === pat.id ? 'text-emerald-100' : 'text-slate-400'}`}>
+              <div className={`text-[10px] ${selectedPatient?.id === pat.id ? 'text-slate-100' : 'text-slate-400'}`}>
                 {pat.bedNumber} • {pat.status}
               </div>
             </button>
@@ -207,7 +207,7 @@ export const EnfermeriaModule: React.FC = () => {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-sm font-bold text-slate-900">
+                  <h2 className="text-sm font-bold text-[#000000]">
                     Monitoreo Clínico de {selectedPatient.fullName}
                   </h2>
                   <p className="text-xs text-slate-500">
@@ -216,7 +216,7 @@ export const EnfermeriaModule: React.FC = () => {
                 </div>
                 <button
                   onClick={() => setShowRecordModal(true)}
-                  className="flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm transition"
+                  className="flex items-center gap-1.5 px-4 py-2 bg-[#007D8F] hover:bg-[#00838B] text-white rounded-xl text-xs font-bold shadow-sm transition cursor-pointer"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Capturar Signos / Ministración</span>
@@ -234,10 +234,10 @@ export const EnfermeriaModule: React.FC = () => {
                     >
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 gap-2">
                         <div className="flex items-center gap-2">
-                          <span className="px-2.5 py-0.5 rounded-md text-xs font-bold bg-emerald-100 text-emerald-800">
+                          <span className="px-2.5 py-0.5 rounded-md text-xs font-bold bg-[#007D8F]/15 text-[#007D8F]">
                             Turno de Enfermería
                           </span>
-                          <span className="text-xs font-bold text-slate-800">{rec.nurseName}</span>
+                          <span className="text-xs font-bold text-[#000000]">{rec.nurseName}</span>
                         </div>
                         <span className="text-xs text-slate-500 font-mono">{rec.recordedAt}</span>
                       </div>
@@ -246,50 +246,50 @@ export const EnfermeriaModule: React.FC = () => {
                       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 text-center text-xs">
                         <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
                           <span className="text-[10px] text-slate-500 font-semibold uppercase">Presión Art.</span>
-                          <div className="text-sm font-extrabold text-slate-900 mt-0.5">{rec.bloodPressure}</div>
+                          <div className="text-sm font-extrabold text-[#000000] mt-0.5">{rec.bloodPressure}</div>
                         </div>
                         <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
                           <span className="text-[10px] text-slate-500 font-semibold uppercase">Frec. Cardíaca</span>
-                          <div className="text-sm font-extrabold text-sky-700 mt-0.5">{rec.heartRate} lpm</div>
+                          <div className="text-sm font-extrabold text-[#007D8F] mt-0.5">{rec.heartRate} lpm</div>
                         </div>
                         <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
                           <span className="text-[10px] text-slate-500 font-semibold uppercase">Frec. Resp.</span>
-                          <div className="text-sm font-extrabold text-teal-700 mt-0.5">{rec.respiratoryRate} rpm</div>
+                          <div className="text-sm font-extrabold text-[#00838B] mt-0.5">{rec.respiratoryRate} rpm</div>
                         </div>
                         <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
                           <span className="text-[10px] text-slate-500 font-semibold uppercase">Temperatura</span>
-                          <div className="text-sm font-extrabold text-amber-700 mt-0.5">{rec.temperature} °C</div>
+                          <div className="text-sm font-extrabold text-[#FFBA38] mt-0.5">{rec.temperature} °C</div>
                         </div>
                         <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
                           <span className="text-[10px] text-slate-500 font-semibold uppercase">Sat. Oxígeno</span>
-                          <div className="text-sm font-extrabold text-emerald-700 mt-0.5">{rec.oxygenSaturation}%</div>
+                          <div className="text-sm font-extrabold text-[#007D8F] mt-0.5">{rec.oxygenSaturation}%</div>
                         </div>
                         <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
                           <span className="text-[10px] text-slate-500 font-semibold uppercase">Glucosa</span>
-                          <div className="text-sm font-extrabold text-indigo-700 mt-0.5">{rec.glucose ? `${rec.glucose} mg/dL` : 'N/D'}</div>
+                          <div className="text-sm font-extrabold text-[#00838B] mt-0.5">{rec.glucose ? `${rec.glucose} mg/dL` : 'N/D'}</div>
                         </div>
                         <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
                           <span className="text-[10px] text-slate-500 font-semibold uppercase">Dolor (EVA)</span>
-                          <div className="text-sm font-extrabold text-rose-700 mt-0.5">{rec.painScaleEva} / 10</div>
+                          <div className="text-sm font-extrabold text-[#000000] mt-0.5">{rec.painScaleEva} / 10</div>
                         </div>
                       </div>
 
                       {/* Scheduled Medications Administered */}
                       {rec.medicationsAdministered && rec.medicationsAdministered.length > 0 && (
                         <div className="text-xs space-y-1.5">
-                          <span className="font-bold text-slate-700 uppercase tracking-wider text-[11px] flex items-center gap-1.5">
-                            <Clock className="w-3.5 h-3.5 text-sky-600" />
+                          <span className="font-bold text-[#000000] uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                            <Clock className="w-3.5 h-3.5 text-[#007D8F]" />
                             Fármacos Administrados por Horario:
                           </span>
                           <div className="space-y-1.5">
                             {rec.medicationsAdministered.map((med, idx) => (
-                              <div key={idx} className="p-2.5 bg-sky-50/70 border border-sky-200 rounded-xl flex items-center justify-between">
+                              <div key={idx} className="p-2.5 bg-[#007D8F]/10 border border-[#007D8F]/30 rounded-xl flex items-center justify-between">
                                 <div>
-                                  <strong className="text-sky-950">{med.medication}</strong> ({med.dose} • {med.route})
-                                  <span className="block text-[10px] text-slate-500">Lote: {med.lote}</span>
+                                  <strong className="text-[#000000]">{med.medication}</strong> ({med.dose} • {med.route})
+                                  <span className="block text-[10px] text-slate-500 font-mono">Lote: {med.lote}</span>
                                 </div>
                                 <div className="text-right text-[11px]">
-                                  <span className="text-slate-500">Prog: {med.scheduledTime}</span> • <span className="font-bold text-sky-800">Aplicado: {med.actualTime}</span>
+                                  <span className="text-slate-500">Prog: {med.scheduledTime}</span> • <span className="font-bold text-[#007D8F]">Aplicado: {med.actualTime}</span>
                                 </div>
                               </div>
                             ))}
@@ -316,7 +316,7 @@ export const EnfermeriaModule: React.FC = () => {
                           </div>
                           <div className="flex justify-between border-t border-slate-200 pt-1 font-bold">
                             <span>Balance Neto:</span>
-                            <span className={rec.fluidInputMl - rec.fluidOutputMl >= 0 ? 'text-emerald-700' : 'text-rose-700'}>
+                            <span className={rec.fluidInputMl - rec.fluidOutputMl >= 0 ? 'text-[#007D8F]' : 'text-rose-700'}>
                               {rec.fluidInputMl - rec.fluidOutputMl > 0 ? `+${rec.fluidInputMl - rec.fluidOutputMl}` : rec.fluidInputMl - rec.fluidOutputMl} ml
                             </span>
                           </div>
@@ -353,8 +353,8 @@ export const EnfermeriaModule: React.FC = () => {
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
-                  <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-                    <Syringe className="w-4 h-4 text-teal-600" />
+                  <h2 className="text-sm font-bold text-[#000000] flex items-center gap-2">
+                    <Syringe className="w-4 h-4 text-[#007D8F]" />
                     Registro de Insumos Menores y Material de Curación
                   </h2>
                   <p className="text-xs text-slate-500">
@@ -365,7 +365,7 @@ export const EnfermeriaModule: React.FC = () => {
 
               {/* Quick Add Card */}
               <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-2xs">
-                <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3">
+                <h3 className="text-xs font-bold text-[#000000] uppercase tracking-wider mb-3">
                   Añadir Insumo Menor al Paciente
                 </h3>
                 <form onSubmit={handleAddQuickMinorSupply} className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
@@ -400,7 +400,7 @@ export const EnfermeriaModule: React.FC = () => {
                       />
                       <button
                         type="submit"
-                        className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl shrink-0 transition"
+                        className="px-4 py-2 bg-[#007D8F] hover:bg-[#00838B] text-white font-bold rounded-xl shrink-0 transition cursor-pointer"
                       >
                         Registrar
                       </button>
@@ -411,7 +411,7 @@ export const EnfermeriaModule: React.FC = () => {
 
               {/* Historical Minor Supplies Table */}
               <div className="bg-white rounded-2xl border border-slate-200/90 shadow-2xs overflow-hidden">
-                <div className="p-3.5 bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-800">
+                <div className="p-3.5 bg-slate-50 border-b border-slate-200 text-xs font-bold text-[#000000]">
                   Historial de Insumos Menores Empleados en la Estancia
                 </div>
                 <div className="divide-y divide-slate-100 text-xs">
@@ -421,11 +421,11 @@ export const EnfermeriaModule: React.FC = () => {
                     .map((item) => (
                       <div key={item.key} className="p-3.5 flex items-center justify-between hover:bg-slate-50/70">
                         <div>
-                          <strong className="text-slate-900">{item.item}</strong>
+                          <strong className="text-[#000000]">{item.item}</strong>
                           <span className="block text-[11px] text-slate-400">Registrado por: {item.nurse}</span>
                         </div>
                         <div className="text-right">
-                          <span className="px-2.5 py-1 bg-teal-50 text-teal-800 rounded-lg font-bold border border-teal-200">
+                          <span className="px-2.5 py-1 bg-[#007D8F]/10 text-[#007D8F] rounded-lg font-bold border border-[#007D8F]/30">
                             {item.quantity} unidades
                           </span>
                           <span className="block text-[10px] text-slate-400 font-mono mt-0.5">{item.recordedAt}</span>
@@ -445,7 +445,7 @@ export const EnfermeriaModule: React.FC = () => {
       {showRecordModal && selectedPatient && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
           <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-2xl w-full p-6 text-xs max-h-[90vh] overflow-y-auto">
-            <h3 className="text-base font-bold text-slate-900 mb-1">
+            <h3 className="text-base font-bold text-[#000000] mb-1">
               Registro en Hoja de Enfermería (NOM-004-SSA3-2012)
             </h3>
             <p className="text-slate-500 mb-4">
@@ -544,8 +544,8 @@ export const EnfermeriaModule: React.FC = () => {
               </div>
 
               {/* Medication Administered by Schedule */}
-              <div className="p-3 bg-sky-50/60 rounded-xl border border-sky-200 space-y-2">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-sky-950">
+              <div className="p-3 bg-[#007D8F]/10 rounded-xl border border-[#007D8F]/30 space-y-2">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#000000]">
                   Ministración de Medicamento por Horario
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
@@ -639,13 +639,13 @@ export const EnfermeriaModule: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowRecordModal(false)}
-                  className="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl font-semibold"
+                  className="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl font-bold cursor-pointer"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold shadow-sm"
+                  className="px-5 py-2 bg-[#007D8F] hover:bg-[#00838B] text-white rounded-xl font-bold shadow-sm cursor-pointer"
                 >
                   Guardar en Hoja NOM-004
                 </button>

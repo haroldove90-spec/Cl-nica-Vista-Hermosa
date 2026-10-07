@@ -147,11 +147,11 @@ export const FarmaciaModule: React.FC = () => {
       {/* Banner */}
       <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="p-3 rounded-xl bg-purple-100 text-purple-800">
+          <div className="p-3 rounded-xl bg-[#007D8F]/10 text-[#007D8F]">
             <Boxes className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-lg sm:text-xl font-bold text-slate-900">
+            <h1 className="text-lg sm:text-xl font-bold text-[#000000]">
               Farmacia y Almacén Sanitario
             </h1>
             <p className="text-xs text-slate-500">
@@ -165,7 +165,7 @@ export const FarmaciaModule: React.FC = () => {
           <button
             onClick={() => setActiveModule('inventario')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              currentTab === 'inventario' ? 'bg-white text-purple-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'inventario' ? 'bg-[#007D8F] text-white shadow-2xs font-bold' : 'text-slate-600 hover:text-[#000000]'
             }`}
           >
             <Boxes className="w-3.5 h-3.5" />
@@ -174,7 +174,7 @@ export const FarmaciaModule: React.FC = () => {
           <button
             onClick={() => setActiveModule('controlados')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              currentTab === 'controlados' ? 'bg-white text-rose-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'controlados' ? 'bg-[#007D8F] text-white shadow-2xs font-bold' : 'text-slate-600 hover:text-[#000000]'
             }`}
           >
             <PillBottle className="w-3.5 h-3.5" />
@@ -183,10 +183,10 @@ export const FarmaciaModule: React.FC = () => {
           <button
             onClick={() => setActiveModule('alertas')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              currentTab === 'alertas' ? 'bg-white text-amber-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'alertas' ? 'bg-[#007D8F] text-white shadow-2xs font-bold' : 'text-slate-600 hover:text-[#000000]'
             }`}
           >
-            <AlertTriangle className="w-3.5 h-3.5" />
+            <AlertTriangle className="w-3.5 h-3.5 text-[#FFBA38]" />
             <span>Alertas ({expiredOrSoon.length + lowStockItems.length})</span>
           </button>
         </div>
@@ -203,13 +203,13 @@ export const FarmaciaModule: React.FC = () => {
                 placeholder="Buscar por fármaco, lote, genérico o clave..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 text-xs border border-slate-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                className="w-full pl-9 pr-3 py-2 text-xs border border-slate-300 rounded-xl focus:ring-2 focus:ring-[#007D8F] focus:outline-none"
               />
             </div>
 
             <button
               onClick={() => setShowNewItemModal(true)}
-              className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold shadow-sm transition"
+              className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-2 bg-[#007D8F] hover:bg-[#00838B] text-white rounded-xl text-xs font-bold shadow-sm transition cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Alta de Insumo / Lote COFEPRIS</span>
@@ -251,32 +251,32 @@ export const FarmaciaModule: React.FC = () => {
                         <tr key={item.id} className="hover:bg-slate-50/70">
                           <td className="p-3 font-mono font-bold text-slate-600">{item.code}</td>
                           <td className="p-3">
-                            <span className="font-bold text-slate-900 block">{item.name}</span>
+                            <span className="font-bold text-[#000000] block">{item.name}</span>
                             <span className="text-[11px] text-slate-500">{item.genericName} • {item.presentation}</span>
                           </td>
-                          <td className="p-3 font-mono font-bold text-purple-800">{item.lote}</td>
+                          <td className="p-3 font-mono font-bold text-[#00838B]">{item.lote}</td>
                           <td className="p-3">
                             <span className={`px-2 py-0.5 rounded font-bold text-[11px] ${
                               isExpired
                                 ? 'bg-rose-100 text-rose-800'
                                 : isSoon
-                                ? 'bg-amber-100 text-amber-800'
+                                ? 'bg-[#FFBA38]/20 text-[#000000] border border-[#FFBA38]/50'
                                 : 'text-slate-700'
                             }`}>
                               {item.caducidad}
                             </span>
                           </td>
                           <td className="p-3 text-center">
-                            <span className={`font-extrabold ${isLowStock ? 'text-rose-600' : 'text-slate-900'}`}>
+                            <span className={`font-extrabold ${isLowStock ? 'text-rose-600' : 'text-[#000000]'}`}>
                               {item.stock}
                             </span>
                             <span className="text-slate-400 text-[10px]"> / mín {item.minStock}</span>
                           </td>
                           <td className="p-3 text-right text-slate-600">${item.unitCost.toLocaleString()}</td>
-                          <td className="p-3 text-right font-bold text-slate-900">${item.unitPrice.toLocaleString()}</td>
+                          <td className="p-3 text-right font-bold text-[#000000]">${item.unitPrice.toLocaleString()}</td>
                           <td className="p-3 text-center">
                             {item.isControlled ? (
-                              <span className="px-2 py-0.5 rounded bg-rose-100 text-rose-800 text-[10px] font-bold">
+                              <span className="px-2 py-0.5 rounded bg-[#000000] text-[#FFBA38] text-[10px] font-bold">
                                 {item.controlledGroup || 'Controlado'}
                               </span>
                             ) : (
@@ -293,7 +293,7 @@ export const FarmaciaModule: React.FC = () => {
                                   updateInventoryStock(item.id, item.stock + parseInt(add));
                                 }
                               }}
-                              className="px-2 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded text-[11px] font-bold transition"
+                              className="px-2.5 py-1 bg-[#007D8F]/10 hover:bg-[#007D8F] text-[#007D8F] hover:text-white rounded-lg text-[11px] font-bold transition cursor-pointer"
                             >
                               + Stock
                             </button>
@@ -314,8 +314,8 @@ export const FarmaciaModule: React.FC = () => {
         <div className="space-y-4">
           <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-                <PillBottle className="w-4 h-4 text-rose-600" />
+              <h2 className="text-sm font-bold text-[#000000] flex items-center gap-2">
+                <PillBottle className="w-4 h-4 text-[#007D8F]" />
                 Libro Oficial de Medicamentos Controlados (COFEPRIS Grupo I, II y III)
               </h2>
               <p className="text-xs text-slate-500">
@@ -324,9 +324,9 @@ export const FarmaciaModule: React.FC = () => {
             </div>
             <button
               onClick={() => setShowControlledModal(true)}
-              className="flex items-center justify-center gap-1.5 px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold shadow-sm transition"
+              className="flex items-center justify-center gap-1.5 px-4 py-2 bg-[#000000] hover:bg-slate-800 text-white rounded-xl text-xs font-bold shadow-sm transition cursor-pointer"
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-4 h-4 text-[#FFBA38]" />
               <span>Asentar Movimiento en Libro</span>
             </button>
           </div>
@@ -334,17 +334,17 @@ export const FarmaciaModule: React.FC = () => {
           {/* Current Controlled Inventory Summary */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {inventory.filter((i) => i.isControlled).map((item) => (
-              <div key={item.id} className="bg-white p-4 rounded-xl border border-rose-200 bg-rose-50/20 text-xs space-y-1">
+              <div key={item.id} className="bg-white p-4 rounded-xl border border-slate-200 bg-slate-50/50 text-xs space-y-1">
                 <div className="flex items-center justify-between font-bold">
-                  <span className="text-slate-900">{item.name}</span>
-                  <span className="px-2 py-0.5 rounded bg-rose-100 text-rose-800 text-[10px]">
+                  <span className="text-[#000000]">{item.name}</span>
+                  <span className="px-2 py-0.5 rounded bg-[#007D8F]/15 text-[#007D8F] text-[10px] font-bold">
                     {item.controlledGroup}
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-slate-500 pt-1">
-                  <span>Lote: <strong className="font-mono text-slate-800">{item.lote}</strong></span>
+                  <span>Lote: <strong className="font-mono text-[#00838B]">{item.lote}</strong></span>
                   <span>Caducidad: {item.caducidad}</span>
-                  <span>Existencia en Libro: <strong className="text-rose-700 text-sm font-extrabold">{item.stock} amp.</strong></span>
+                  <span>Existencia en Libro: <strong className="text-[#007D8F] text-sm font-extrabold">{item.stock} amp.</strong></span>
                 </div>
               </div>
             ))}
@@ -378,22 +378,22 @@ export const FarmaciaModule: React.FC = () => {
                     controlledDrugLogs.map((log) => (
                       <tr key={log.id} className="hover:bg-slate-50/70">
                         <td className="p-3 font-mono text-[11px] text-slate-500">{log.createdAt}</td>
-                        <td className="p-3 font-bold text-slate-900">{log.drugName}</td>
-                        <td className="p-3 font-mono text-purple-700 font-bold">{log.lote}</td>
+                        <td className="p-3 font-bold text-[#000000]">{log.drugName}</td>
+                        <td className="p-3 font-mono text-[#00838B] font-bold">{log.lote}</td>
                         <td className="p-3 text-center">
                           <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                            log.movementType === 'Entrada' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+                            log.movementType === 'Entrada' ? 'bg-[#007D8F]/15 text-[#007D8F]' : 'bg-[#000000] text-[#FFBA38]'
                           }`}>
                             {log.movementType}
                           </span>
                         </td>
                         <td className="p-3 text-center font-bold">{log.quantity}</td>
-                        <td className="p-3 text-center font-extrabold text-slate-900">{log.balanceAfter}</td>
+                        <td className="p-3 text-center font-extrabold text-[#000000]">{log.balanceAfter}</td>
                         <td className="p-3">
                           {log.doctorName ? (
                             <div>
-                              <span className="font-semibold text-slate-800 block">{log.doctorName}</span>
-                              <span className="text-[10px] font-mono text-sky-800">Céd. {log.doctorCedula}</span>
+                              <span className="font-semibold text-[#000000] block">{log.doctorName}</span>
+                              <span className="text-[10px] font-mono text-[#007D8F]">Céd. {log.doctorCedula}</span>
                             </div>
                           ) : (
                             <span className="text-slate-400">Entrada almacén</span>
@@ -419,8 +419,8 @@ export const FarmaciaModule: React.FC = () => {
           
           {/* Near Expiration Alert */}
           <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-2xs space-y-3">
-            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-amber-600" />
+            <h3 className="text-sm font-bold text-[#000000] flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-[#FFBA38]" />
               Insumos Próximos a Vencer o Vencidos (Requisito COFEPRIS)
             </h3>
             <p className="text-xs text-slate-500">
@@ -434,15 +434,15 @@ export const FarmaciaModule: React.FC = () => {
                 </div>
               ) : (
                 expiredOrSoon.map((item) => (
-                  <div key={item.id} className="p-3.5 flex items-center justify-between bg-amber-50/40 text-xs">
+                  <div key={item.id} className="p-3.5 flex items-center justify-between bg-[#FFBA38]/10 text-xs">
                     <div>
-                      <strong className="text-slate-900">{item.name}</strong>
+                      <strong className="text-[#000000]">{item.name}</strong>
                       <span className="block text-[11px] text-slate-500 font-mono">
                         Lote: {item.lote} | Existencias: {item.stock} {item.presentation}
                       </span>
                     </div>
                     <div className="text-right">
-                      <span className="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-900 font-bold text-xs">
+                      <span className="px-2.5 py-1 rounded-lg bg-[#FFBA38] text-[#000000] font-bold text-xs">
                         Caduca: {item.caducidad}
                       </span>
                     </div>
@@ -454,8 +454,8 @@ export const FarmaciaModule: React.FC = () => {
 
           {/* Low Stock Alert */}
           <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-2xs space-y-3">
-            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <TrendingDown className="w-4 h-4 text-rose-600" />
+            <h3 className="text-sm font-bold text-[#000000] flex items-center gap-2">
+              <TrendingDown className="w-4 h-4 text-[#007D8F]" />
               Insumos con Stock Bajo (Nivel Crítico de Reabastecimiento)
             </h3>
             <div className="divide-y divide-slate-100 border border-slate-200 rounded-xl overflow-hidden">
@@ -465,15 +465,15 @@ export const FarmaciaModule: React.FC = () => {
                 </div>
               ) : (
                 lowStockItems.map((item) => (
-                  <div key={item.id} className="p-3.5 flex items-center justify-between bg-rose-50/30 text-xs">
+                  <div key={item.id} className="p-3.5 flex items-center justify-between bg-slate-50 text-xs">
                     <div>
-                      <strong className="text-slate-900">{item.name}</strong>
+                      <strong className="text-[#000000]">{item.name}</strong>
                       <span className="block text-[11px] text-slate-500 font-mono">
                         Lote: {item.lote} | Proveedor: {item.supplier}
                       </span>
                     </div>
                     <div className="text-right">
-                      <span className="px-2.5 py-1 rounded-lg bg-rose-100 text-rose-900 font-bold text-xs">
+                      <span className="px-2.5 py-1 rounded-lg bg-[#007D8F]/15 text-[#007D8F] font-bold text-xs border border-[#007D8F]/30">
                         {item.stock} piezas (Mín: {item.minStock})
                       </span>
                     </div>
@@ -490,7 +490,7 @@ export const FarmaciaModule: React.FC = () => {
       {showNewItemModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
           <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-lg w-full p-6 text-xs max-h-[90vh] overflow-y-auto">
-            <h3 className="text-base font-bold text-slate-900 mb-1">
+            <h3 className="text-base font-bold text-[#000000] mb-1">
               Alta de Insumo / Medicamento (COFEPRIS)
             </h3>
             <p className="text-slate-500 mb-4">
@@ -506,7 +506,7 @@ export const FarmaciaModule: React.FC = () => {
                   value={newItem.name}
                   onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
                   placeholder="Ej: Ketorolaco Trometamina Solución Inyectable 30mg"
-                  className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
+                  className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#007D8F]"
                 />
               </div>
 
@@ -580,16 +580,16 @@ export const FarmaciaModule: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-3 bg-purple-50/50 rounded-xl border border-purple-200 flex items-center justify-between">
+              <div className="p-3 bg-[#007D8F]/10 rounded-xl border border-[#007D8F]/30 flex items-center justify-between">
                 <div>
-                  <span className="font-bold text-purple-950 block">¿Es Medicamento Controlado?</span>
+                  <span className="font-bold text-[#000000] block">¿Es Medicamento Controlado?</span>
                   <span className="text-[11px] text-slate-500">Requiere libro de control oficial COFEPRIS</span>
                 </div>
                 <input
                   type="checkbox"
                   checked={newItem.isControlled}
                   onChange={(e) => setNewItem({ ...newItem, isControlled: e.target.checked, controlledGroup: e.target.checked ? 'Grupo II' : undefined })}
-                  className="w-4 h-4 text-purple-600 rounded"
+                  className="w-4 h-4 text-[#007D8F] rounded cursor-pointer"
                 />
               </div>
 
@@ -612,13 +612,13 @@ export const FarmaciaModule: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowNewItemModal(false)}
-                  className="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl font-semibold"
+                  className="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl font-semibold cursor-pointer"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold shadow-sm"
+                  className="px-5 py-2 bg-[#007D8F] hover:bg-[#00838B] text-white rounded-xl font-bold shadow-sm cursor-pointer"
                 >
                   Guardar en Almacén
                 </button>
@@ -632,7 +632,7 @@ export const FarmaciaModule: React.FC = () => {
       {showControlledModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
           <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-lg w-full p-6 text-xs max-h-[90vh] overflow-y-auto">
-            <h3 className="text-base font-bold text-slate-900 mb-1">
+            <h3 className="text-base font-bold text-[#000000] mb-1">
               Movimiento en Libro de Controlados (COFEPRIS)
             </h3>
             <p className="text-slate-500 mb-4">
@@ -681,8 +681,8 @@ export const FarmaciaModule: React.FC = () => {
               </div>
 
               {controlledForm.movementType === 'Salida' && (
-                <div className="p-3 bg-rose-50/50 rounded-xl border border-rose-200 space-y-3">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-rose-900">
+                <div className="p-3 bg-[#007D8F]/10 rounded-xl border border-[#007D8F]/30 space-y-3">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#000000]">
                     Datos del Médico Prescriptor (Obligatorio COFEPRIS)
                   </span>
                   <div className="grid grid-cols-2 gap-2">
@@ -746,13 +746,13 @@ export const FarmaciaModule: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowControlledModal(false)}
-                  className="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl font-semibold"
+                  className="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl font-semibold cursor-pointer"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold shadow-sm"
+                  className="px-5 py-2 bg-[#007D8F] hover:bg-[#00838B] text-white rounded-xl font-bold shadow-sm cursor-pointer"
                 >
                   Asentar en Libro Oficial
                 </button>
