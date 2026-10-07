@@ -14,6 +14,7 @@ import {
   PillBottle, 
   AlertTriangle,
   Workflow,
+  Database,
   X
 } from 'lucide-react';
 
@@ -32,36 +33,36 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const { currentRole, activeModule, setActiveModule, setCurrentRole } = useClinic();
 
-  // Modules definition per role
+  // Modules definition per role matching BottomBar and components
   const getModulesForRole = () => {
     switch (currentRole) {
       case 'direccion':
         return [
-          { id: 'default', label: 'Panel Ejecutivo', icon: ShieldCheck },
           { id: 'auditoria', label: 'Bitácora Inalterable', icon: FileText, tag: 'COFEPRIS' },
-          { id: 'finanzas', label: 'Cuentas por Pagar & Gastos', icon: DollarSign },
+          { id: 'finanzas', label: 'Cuentas por Pagar & Gastos', icon: DollarSign, tag: 'Admin' },
+          { id: 'resumen', label: 'Panel Ejecutivo & Métricas', icon: ShieldCheck },
         ];
       case 'recepcion':
         return [
-          { id: 'default', label: 'Ficha Pacientes NOM-004', icon: FileText, tag: 'NOM-004' },
-          { id: 'consentimientos', label: 'Consentimientos & Privacidad', icon: PenTool },
+          { id: 'ficha', label: 'Ficha Pacientes NOM-004', icon: FileText, tag: 'NOM-004' },
+          { id: 'consentimientos', label: 'Consentimientos & Privacidad', icon: PenTool, tag: 'Firmas' },
           { id: 'cobranza', label: 'Cobranza & Facturación SAT', icon: Receipt, tag: 'CFDI 4.0' },
         ];
       case 'medico':
         return [
-          { id: 'default', label: 'Notas Médicas & Quirúrgicas', icon: Stethoscope, tag: 'NOM-004' },
+          { id: 'notas', label: 'Notas Médicas & Quirúrgicas', icon: Stethoscope, tag: 'NOM-004' },
           { id: 'consumo', label: 'Hoja de Consumo & Trazabilidad', icon: PackageCheck, tag: 'Lote/Cad.' },
         ];
       case 'enfermeria':
         return [
-          { id: 'default', label: 'Hoja de Enfermería NOM-004', icon: HeartPulse, tag: 'Signos & Horario' },
-          { id: 'insumos_menores', label: 'Insumos Menores & Estancia', icon: Syringe },
+          { id: 'hoja_enfermeria', label: 'Hoja de Enfermería NOM-004', icon: HeartPulse, tag: 'Signos' },
+          { id: 'insumos_menores', label: 'Insumos Menores & Estancia', icon: Syringe, tag: 'Material' },
         ];
       case 'farmacia':
         return [
-          { id: 'default', label: 'Inventario & Caducidades', icon: Boxes, tag: 'COFEPRIS' },
+          { id: 'inventario', label: 'Inventario & Caducidades', icon: Boxes, tag: 'COFEPRIS' },
           { id: 'controlados', label: 'Medicamentos Controlados', icon: PillBottle, tag: 'Grupo I-III' },
-          { id: 'alertas', label: 'Alertas de Vencimiento', icon: AlertTriangle },
+          { id: 'alertas', label: 'Alertas Sanitarias', icon: AlertTriangle, tag: 'Vencimientos' },
         ];
       default:
         return [];
@@ -94,7 +95,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               alt="Icono"
               className="w-6 h-6 object-contain"
             />
-            <span className="font-bold text-sm text-slate-800">Menú de Navegación</span>
+            <span className="font-bold text-sm text-slate-800">Módulos del Rol</span>
           </div>
           <button
             onClick={() => setIsOpen(false)}
@@ -107,7 +108,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* Modules List */}
         <div className="flex-1 overflow-y-auto p-4 space-y-1.5">
           <div className="px-3 pb-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">
-            Módulos del Rol
+            Módulos Activos
           </div>
 
           {modules.map((m) => {
@@ -166,7 +167,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             }}
             className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-medium text-slate-700 hover:bg-slate-50 transition"
           >
-            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <Database className="w-4 h-4 text-emerald-600" />
             <span>Gestión de Datos & Supabase</span>
           </button>
         </div>

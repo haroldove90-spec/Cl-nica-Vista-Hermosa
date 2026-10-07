@@ -26,14 +26,11 @@ export const RecepcionModule: React.FC = () => {
     generateInvoice, 
     registerPayment,
     invoices,
-    activeModule 
+    activeModule,
+    setActiveModule 
   } = useClinic();
 
-  const [activeTab, setActiveTab] = useState<'ficha' | 'consentimientos' | 'cobranza'>(() => {
-    if (activeModule === 'consentimientos') return 'consentimientos';
-    if (activeModule === 'cobranza') return 'cobranza';
-    return 'ficha';
-  });
+  const currentTab = (activeModule === 'consentimientos' || activeModule === 'cobranza') ? activeModule : 'ficha';
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedPatientForConsent, setSelectedPatientForConsent] = useState<Patient | null>(null);
@@ -125,7 +122,7 @@ export const RecepcionModule: React.FC = () => {
     // Prompt consent
     setSelectedPatientForConsent(created);
     setConsentWitness2(created.responsiblePerson);
-    setActiveTab('consentimientos');
+    setActiveModule('consentimientos');
   };
 
   // Canvas Drawing for Consent Signature
@@ -198,7 +195,7 @@ export const RecepcionModule: React.FC = () => {
   const handleOpenBilling = (patient: Patient) => {
     setSelectedPatientForBilling(patient);
     setInvoiceFiscalName(patient.fullName.toUpperCase());
-    setActiveTab('cobranza');
+    setActiveModule('cobranza');
   };
 
   const handleEmitInvoice = (e: React.FormEvent) => {
@@ -274,27 +271,27 @@ export const RecepcionModule: React.FC = () => {
         {/* Tab Switcher */}
         <div className="flex rounded-xl bg-slate-100 p-1 border border-slate-200 text-xs font-semibold">
           <button
-            onClick={() => setActiveTab('ficha')}
+            onClick={() => setActiveModule('ficha')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              activeTab === 'ficha' ? 'bg-white text-teal-700 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'ficha' ? 'bg-white text-teal-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <UserPlus className="w-3.5 h-3.5" />
             <span>Ficha NOM-004</span>
           </button>
           <button
-            onClick={() => setActiveTab('consentimientos')}
+            onClick={() => setActiveModule('consentimientos')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              activeTab === 'consentimientos' ? 'bg-white text-sky-700 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'consentimientos' ? 'bg-white text-sky-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <PenTool className="w-3.5 h-3.5" />
             <span>Consentimientos</span>
           </button>
           <button
-            onClick={() => setActiveTab('cobranza')}
+            onClick={() => setActiveModule('cobranza')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              activeTab === 'cobranza' ? 'bg-white text-emerald-700 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'cobranza' ? 'bg-white text-emerald-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <DollarSign className="w-3.5 h-3.5" />
@@ -304,7 +301,7 @@ export const RecepcionModule: React.FC = () => {
       </div>
 
       {/* TAB 1: FICHA DE IDENTIFICACIÓN NOM-004 */}
-      {activeTab === 'ficha' && (
+      {currentTab === 'ficha' && (
         <div className="space-y-4">
           <div className="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="relative w-full sm:w-80">
@@ -384,7 +381,7 @@ export const RecepcionModule: React.FC = () => {
                               onClick={() => {
                                 setSelectedPatientForConsent(pat);
                                 setConsentWitness2(pat.responsiblePerson);
-                                setActiveTab('consentimientos');
+                                setActiveModule('consentimientos');
                               }}
                               className="px-2 py-0.5 rounded bg-amber-100 hover:bg-amber-200 text-amber-800 text-[10px] font-bold"
                             >
@@ -421,7 +418,7 @@ export const RecepcionModule: React.FC = () => {
       )}
 
       {/* TAB 2: CONSENTIMIENTOS Y PRIVACIDAD */}
-      {activeTab === 'consentimientos' && (
+      {currentTab === 'consentimientos' && (
         <div className="space-y-4">
           <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-2xs">
             <h2 className="text-sm font-bold text-slate-900 mb-2 flex items-center gap-2">
@@ -601,7 +598,7 @@ export const RecepcionModule: React.FC = () => {
       )}
 
       {/* TAB 3: COBRANZA Y FACTURACIÓN SAT CFDI 4.0 */}
-      {activeTab === 'cobranza' && (
+      {currentTab === 'cobranza' && (
         <div className="space-y-6">
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

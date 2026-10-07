@@ -11,7 +11,8 @@ import {
   Droplet, 
   AlertCircle,
   CheckCircle2,
-  Calendar
+  Calendar,
+  PackageCheck
 } from 'lucide-react';
 
 export const EnfermeriaModule: React.FC = () => {
@@ -19,19 +20,21 @@ export const EnfermeriaModule: React.FC = () => {
     patients, 
     nursingRecords, 
     addNursingRecord, 
-    activeModule 
+    activeModule,
+    setActiveModule 
   } = useClinic();
 
-  const [activeTab, setActiveTab] = useState<'hoja' | 'insumos_menores'>(() => {
-    if (activeModule === 'insumos_menores') return 'insumos_menores';
-    return 'hoja';
-  });
+  const currentTab = activeModule === 'insumos_menores' ? 'insumos_menores' : 'hoja_enfermeria';
 
   const [selectedPatientId, setSelectedPatientId] = useState<string>(() => {
     return patients[0]?.id || '';
   });
 
   const selectedPatient = patients.find((p) => p.id === selectedPatientId) || patients[0];
+
+  // Quick minor supply addition form
+  const [minorItem, setMinorItem] = useState('Gasas estériles (paquete c/5)');
+  const [minorQty, setMinorQty] = useState(2);
 
   // Nursing Sheet Form according to NOM-004
   const [showRecordModal, setShowRecordModal] = useState(false);
@@ -97,6 +100,35 @@ export const EnfermeriaModule: React.FC = () => {
     alert('Hoja de Enfermería NOM-004 actualizada exitosamente.');
   };
 
+  const handleAddQuickMinorSupply = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedPatient || !minorItem) return;
+
+    addNursingRecord({
+      patientId: selectedPatient.id,
+      patientName: selectedPatient.fullName,
+      nurseName: 'Enf. en Turno',
+      bloodPressure: '120/80 mmHg',
+      heartRate: 72,
+      respiratoryRate: 18,
+      temperature: 36.6,
+      oxygenSaturation: 98,
+      painScaleEva: 1,
+      fluidInputMl: 0,
+      fluidOutputMl: 0,
+      evolutionNotes: `Aplicación de insumo menor de curación: ${minorQty}x ${minorItem}.`,
+      medicationsAdministered: [],
+      minorSuppliesUsed: [
+        {
+          item: minorItem,
+          quantity: Number(minorQty),
+        }
+      ],
+    });
+
+    alert(`Insumo menor registrado para ${selectedPatient.fullName}.`);
+  };
+
   return (
     <div className="space-y-6">
       
@@ -119,18 +151,18 @@ export const EnfermeriaModule: React.FC = () => {
         {/* Tab switch */}
         <div className="flex rounded-xl bg-slate-100 p-1 border border-slate-200 text-xs font-semibold">
           <button
-            onClick={() => setActiveTab('hoja')}
+            onClick={() => setActiveModule('hoja_enfermeria')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              activeTab === 'hoja' ? 'bg-white text-emerald-700 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'hoja_enfermeria' ? 'bg-white text-emerald-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <Activity className="w-3.5 h-3.5" />
             <span>Hoja de Signos & Horarios</span>
           </button>
           <button
-            onClick={() => setActiveTab('insumos_menores')}
+            onClick={() => setActiveModule('insumos_menores')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              activeTab === 'insumos_menores' ? 'bg-white text-teal-700 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'insumos_menores' ? 'bg-white text-teal-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <Syringe className="w-3.5 h-3.5" />
@@ -169,146 +201,243 @@ export const EnfermeriaModule: React.FC = () => {
 
       {selectedPatient && (
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-sm font-bold text-slate-900">
-                Monitoreo de {selectedPatient.fullName}
-              </h2>
-              <p className="text-xs text-slate-500">
-                Cama: <strong>{selectedPatient.bedNumber}</strong> | Servicio: <strong>{selectedPatient.service}</strong> | Alergias: <strong className="text-rose-600">{selectedPatient.allergies}</strong>
-              </p>
-            </div>
-            <button
-              onClick={() => setShowRecordModal(true)}
-              className="flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm transition"
-            >
-              <Plus className="w-4 h-4" />
-              <span>Capturar Signos / Ministración</span>
-            </button>
-          </div>
-
-          {/* Records Feed */}
-          <div className="space-y-4">
-            {nursingRecords
-              .filter((r) => r.patientId === selectedPatient.id)
-              .map((rec) => (
-                <div
-                  key={rec.id}
-                  className="bg-white rounded-2xl border border-slate-200/90 shadow-2xs p-5 space-y-4"
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 gap-2">
-                    <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-0.5 rounded-md text-xs font-bold bg-emerald-100 text-emerald-800">
-                        Turno de Enfermería
-                      </span>
-                      <span className="text-xs font-bold text-slate-800">{rec.nurseName}</span>
-                    </div>
-                    <span className="text-xs text-slate-500 font-mono">{rec.recordedAt}</span>
-                  </div>
-
-                  {/* Vital Signs Grid */}
-                  <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 text-center text-xs">
-                    <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
-                      <span className="text-[10px] text-slate-500 font-semibold uppercase">Presión Art.</span>
-                      <div className="text-sm font-extrabold text-slate-900 mt-0.5">{rec.bloodPressure}</div>
-                    </div>
-                    <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
-                      <span className="text-[10px] text-slate-500 font-semibold uppercase">Frec. Cardíaca</span>
-                      <div className="text-sm font-extrabold text-sky-700 mt-0.5">{rec.heartRate} lpm</div>
-                    </div>
-                    <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
-                      <span className="text-[10px] text-slate-500 font-semibold uppercase">Frec. Resp.</span>
-                      <div className="text-sm font-extrabold text-teal-700 mt-0.5">{rec.respiratoryRate} rpm</div>
-                    </div>
-                    <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
-                      <span className="text-[10px] text-slate-500 font-semibold uppercase">Temperatura</span>
-                      <div className="text-sm font-extrabold text-amber-700 mt-0.5">{rec.temperature} °C</div>
-                    </div>
-                    <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
-                      <span className="text-[10px] text-slate-500 font-semibold uppercase">Sat. Oxígeno</span>
-                      <div className="text-sm font-extrabold text-emerald-700 mt-0.5">{rec.oxygenSaturation}%</div>
-                    </div>
-                    <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
-                      <span className="text-[10px] text-slate-500 font-semibold uppercase">Glucosa</span>
-                      <div className="text-sm font-extrabold text-indigo-700 mt-0.5">{rec.glucose ? `${rec.glucose} mg/dL` : 'N/D'}</div>
-                    </div>
-                    <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
-                      <span className="text-[10px] text-slate-500 font-semibold uppercase">Dolor (EVA)</span>
-                      <div className="text-sm font-extrabold text-rose-700 mt-0.5">{rec.painScaleEva} / 10</div>
-                    </div>
-                  </div>
-
-                  {/* Scheduled Medications Administered */}
-                  {rec.medicationsAdministered && rec.medicationsAdministered.length > 0 && (
-                    <div className="text-xs space-y-1.5">
-                      <span className="font-bold text-slate-700 uppercase tracking-wider text-[11px] flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5 text-sky-600" />
-                        Fármacos Administrados por Horario:
-                      </span>
-                      <div className="space-y-1.5">
-                        {rec.medicationsAdministered.map((med, idx) => (
-                          <div key={idx} className="p-2.5 bg-sky-50/70 border border-sky-200 rounded-xl flex items-center justify-between">
-                            <div>
-                              <strong className="text-sky-950">{med.medication}</strong> ({med.dose} • {med.route})
-                              <span className="block text-[10px] text-slate-500">Lote: {med.lote}</span>
-                            </div>
-                            <div className="text-right text-[11px]">
-                              <span className="text-slate-500">Prog: {med.scheduledTime}</span> • <span className="font-bold text-sky-800">Aplicado: {med.actualTime}</span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Evolution Notes & Fluid Balance */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-                    <div className="md:col-span-2 p-3 bg-slate-50 rounded-xl border border-slate-200/80">
-                      <span className="font-bold text-slate-700 block mb-1">Observaciones de Evolución:</span>
-                      <p className="text-slate-700 leading-relaxed">{rec.evolutionNotes}</p>
-                    </div>
-
-                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80 space-y-1">
-                      <span className="font-bold text-slate-700 block mb-1">Balance Hídrico:</span>
-                      <div className="flex justify-between text-slate-600">
-                        <span>Ingresos (Soluciones):</span>
-                        <strong className="text-slate-900">{rec.fluidInputMl} ml</strong>
-                      </div>
-                      <div className="flex justify-between text-slate-600">
-                        <span>Egresos (Diuresis):</span>
-                        <strong className="text-slate-900">{rec.fluidOutputMl} ml</strong>
-                      </div>
-                      <div className="flex justify-between border-t border-slate-200 pt-1 font-bold">
-                        <span>Balance Neto:</span>
-                        <span className={rec.fluidInputMl - rec.fluidOutputMl >= 0 ? 'text-emerald-700' : 'text-rose-700'}>
-                          {rec.fluidInputMl - rec.fluidOutputMl > 0 ? `+${rec.fluidInputMl - rec.fluidOutputMl}` : rec.fluidInputMl - rec.fluidOutputMl} ml
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Minor supplies used */}
-                  {rec.minorSuppliesUsed && rec.minorSuppliesUsed.length > 0 && (
-                    <div className="text-[11px] text-slate-500 flex items-center gap-2 pt-1 border-t border-slate-100">
-                      <Syringe className="w-3.5 h-3.5 text-slate-400" />
-                      <span>Insumos menores empleados:</span>
-                      {rec.minorSuppliesUsed.map((s, idx) => (
-                        <span key={idx} className="bg-slate-100 px-2 py-0.5 rounded text-slate-700 font-medium">
-                          {s.quantity}x {s.item}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-
+          
+          {/* TAB 1: HOJA DE SIGNOS & HORARIOS */}
+          {currentTab === 'hoja_enfermeria' && (
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-sm font-bold text-slate-900">
+                    Monitoreo Clínico de {selectedPatient.fullName}
+                  </h2>
+                  <p className="text-xs text-slate-500">
+                    Cama: <strong>{selectedPatient.bedNumber}</strong> | Servicio: <strong>{selectedPatient.service}</strong> | Alergias: <strong className="text-rose-600">{selectedPatient.allergies}</strong>
+                  </p>
                 </div>
-              ))}
-
-            {nursingRecords.filter((r) => r.patientId === selectedPatient.id).length === 0 && (
-              <div className="bg-white p-8 rounded-2xl border border-slate-200 text-center text-xs text-slate-400">
-                No hay registros de enfermería para este paciente. Presiona «Capturar Signos / Ministración».
+                <button
+                  onClick={() => setShowRecordModal(true)}
+                  className="flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm transition"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Capturar Signos / Ministración</span>
+                </button>
               </div>
-            )}
-          </div>
+
+              {/* Records Feed */}
+              <div className="space-y-4">
+                {nursingRecords
+                  .filter((r) => r.patientId === selectedPatient.id)
+                  .map((rec) => (
+                    <div
+                      key={rec.id}
+                      className="bg-white rounded-2xl border border-slate-200/90 shadow-2xs p-5 space-y-4"
+                    >
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 gap-2">
+                        <div className="flex items-center gap-2">
+                          <span className="px-2.5 py-0.5 rounded-md text-xs font-bold bg-emerald-100 text-emerald-800">
+                            Turno de Enfermería
+                          </span>
+                          <span className="text-xs font-bold text-slate-800">{rec.nurseName}</span>
+                        </div>
+                        <span className="text-xs text-slate-500 font-mono">{rec.recordedAt}</span>
+                      </div>
+
+                      {/* Vital Signs Grid */}
+                      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 text-center text-xs">
+                        <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
+                          <span className="text-[10px] text-slate-500 font-semibold uppercase">Presión Art.</span>
+                          <div className="text-sm font-extrabold text-slate-900 mt-0.5">{rec.bloodPressure}</div>
+                        </div>
+                        <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
+                          <span className="text-[10px] text-slate-500 font-semibold uppercase">Frec. Cardíaca</span>
+                          <div className="text-sm font-extrabold text-sky-700 mt-0.5">{rec.heartRate} lpm</div>
+                        </div>
+                        <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
+                          <span className="text-[10px] text-slate-500 font-semibold uppercase">Frec. Resp.</span>
+                          <div className="text-sm font-extrabold text-teal-700 mt-0.5">{rec.respiratoryRate} rpm</div>
+                        </div>
+                        <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
+                          <span className="text-[10px] text-slate-500 font-semibold uppercase">Temperatura</span>
+                          <div className="text-sm font-extrabold text-amber-700 mt-0.5">{rec.temperature} °C</div>
+                        </div>
+                        <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
+                          <span className="text-[10px] text-slate-500 font-semibold uppercase">Sat. Oxígeno</span>
+                          <div className="text-sm font-extrabold text-emerald-700 mt-0.5">{rec.oxygenSaturation}%</div>
+                        </div>
+                        <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
+                          <span className="text-[10px] text-slate-500 font-semibold uppercase">Glucosa</span>
+                          <div className="text-sm font-extrabold text-indigo-700 mt-0.5">{rec.glucose ? `${rec.glucose} mg/dL` : 'N/D'}</div>
+                        </div>
+                        <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
+                          <span className="text-[10px] text-slate-500 font-semibold uppercase">Dolor (EVA)</span>
+                          <div className="text-sm font-extrabold text-rose-700 mt-0.5">{rec.painScaleEva} / 10</div>
+                        </div>
+                      </div>
+
+                      {/* Scheduled Medications Administered */}
+                      {rec.medicationsAdministered && rec.medicationsAdministered.length > 0 && (
+                        <div className="text-xs space-y-1.5">
+                          <span className="font-bold text-slate-700 uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                            <Clock className="w-3.5 h-3.5 text-sky-600" />
+                            Fármacos Administrados por Horario:
+                          </span>
+                          <div className="space-y-1.5">
+                            {rec.medicationsAdministered.map((med, idx) => (
+                              <div key={idx} className="p-2.5 bg-sky-50/70 border border-sky-200 rounded-xl flex items-center justify-between">
+                                <div>
+                                  <strong className="text-sky-950">{med.medication}</strong> ({med.dose} • {med.route})
+                                  <span className="block text-[10px] text-slate-500">Lote: {med.lote}</span>
+                                </div>
+                                <div className="text-right text-[11px]">
+                                  <span className="text-slate-500">Prog: {med.scheduledTime}</span> • <span className="font-bold text-sky-800">Aplicado: {med.actualTime}</span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Evolution Notes & Fluid Balance */}
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                        <div className="md:col-span-2 p-3 bg-slate-50 rounded-xl border border-slate-200/80">
+                          <span className="font-bold text-slate-700 block mb-1">Observaciones de Evolución:</span>
+                          <p className="text-slate-700 leading-relaxed">{rec.evolutionNotes}</p>
+                        </div>
+
+                        <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80 space-y-1">
+                          <span className="font-bold text-slate-700 block mb-1">Balance Hídrico:</span>
+                          <div className="flex justify-between text-slate-600">
+                            <span>Ingresos (Soluciones):</span>
+                            <strong className="text-slate-900">{rec.fluidInputMl} ml</strong>
+                          </div>
+                          <div className="flex justify-between text-slate-600">
+                            <span>Egresos (Diuresis):</span>
+                            <strong className="text-slate-900">{rec.fluidOutputMl} ml</strong>
+                          </div>
+                          <div className="flex justify-between border-t border-slate-200 pt-1 font-bold">
+                            <span>Balance Neto:</span>
+                            <span className={rec.fluidInputMl - rec.fluidOutputMl >= 0 ? 'text-emerald-700' : 'text-rose-700'}>
+                              {rec.fluidInputMl - rec.fluidOutputMl > 0 ? `+${rec.fluidInputMl - rec.fluidOutputMl}` : rec.fluidInputMl - rec.fluidOutputMl} ml
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Minor supplies used */}
+                      {rec.minorSuppliesUsed && rec.minorSuppliesUsed.length > 0 && (
+                        <div className="text-[11px] text-slate-500 flex items-center gap-2 pt-1 border-t border-slate-100">
+                          <Syringe className="w-3.5 h-3.5 text-slate-400" />
+                          <span>Insumos menores empleados:</span>
+                          {rec.minorSuppliesUsed.map((s, idx) => (
+                            <span key={idx} className="bg-slate-100 px-2 py-0.5 rounded text-slate-700 font-medium">
+                              {s.quantity}x {s.item}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                    </div>
+                  ))}
+
+                {nursingRecords.filter((r) => r.patientId === selectedPatient.id).length === 0 && (
+                  <div className="bg-white p-8 rounded-2xl border border-slate-200 text-center text-xs text-slate-400">
+                    No hay registros de enfermería para este paciente. Presiona «Capturar Signos / Ministración».
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* TAB 2: INSUMOS MENORES & ESTANCIA */}
+          {currentTab === 'insumos_menores' && (
+            <div className="space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                    <Syringe className="w-4 h-4 text-teal-600" />
+                    Registro de Insumos Menores y Material de Curación
+                  </h2>
+                  <p className="text-xs text-slate-500">
+                    Control de gasas, jeringas, apósitos, catéteres y soluciones aplicados en cama para {selectedPatient.fullName}
+                  </p>
+                </div>
+              </div>
+
+              {/* Quick Add Card */}
+              <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-2xs">
+                <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3">
+                  Añadir Insumo Menor al Paciente
+                </h3>
+                <form onSubmit={handleAddQuickMinorSupply} className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                  <div className="sm:col-span-2">
+                    <label className="block font-bold text-slate-700">Insumo Menor / Material</label>
+                    <select
+                      value={minorItem}
+                      onChange={(e) => setMinorItem(e.target.value)}
+                      className="mt-1 w-full px-3 py-2 border rounded-xl bg-white"
+                    >
+                      <option value="Gasas estériles (paquete c/5)">Gasas estériles (paquete c/5)</option>
+                      <option value="Jeringa 5ml con aguja 21G">Jeringa 5ml con aguja 21G</option>
+                      <option value="Jeringa 10ml con aguja 20G">Jeringa 10ml con aguja 20G</option>
+                      <option value="Catéter Punzocat #18">Catéter Punzocat #18</option>
+                      <option value="Catéter Punzocat #20">Catéter Punzocat #20</option>
+                      <option value="Equipo de Venoclisis Normogotero">Equipo de Venoclisis Normogotero</option>
+                      <option value="Apósito transparente Tegaderm">Apósito transparente Tegaderm</option>
+                      <option value="Tela adhesiva Micropore 3M">Tela adhesiva Micropore 3M</option>
+                      <option value="Tira reactiva de glucemia capilar">Tira reactiva de glucemia capilar</option>
+                      <option value="Solución Antiséptica Clorhexidina 2%">Solución Antiséptica Clorhexidina 2%</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block font-bold text-slate-700">Cantidad</label>
+                    <div className="flex gap-2 mt-1">
+                      <input
+                        type="number"
+                        min="1"
+                        value={minorQty}
+                        onChange={(e) => setMinorQty(parseInt(e.target.value) || 1)}
+                        className="w-full px-3 py-2 border rounded-xl font-bold"
+                      />
+                      <button
+                        type="submit"
+                        className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl shrink-0 transition"
+                      >
+                        Registrar
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              {/* Historical Minor Supplies Table */}
+              <div className="bg-white rounded-2xl border border-slate-200/90 shadow-2xs overflow-hidden">
+                <div className="p-3.5 bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-800">
+                  Historial de Insumos Menores Empleados en la Estancia
+                </div>
+                <div className="divide-y divide-slate-100 text-xs">
+                  {nursingRecords
+                    .filter((r) => r.patientId === selectedPatient.id && r.minorSuppliesUsed && r.minorSuppliesUsed.length > 0)
+                    .flatMap((r) => r.minorSuppliesUsed.map((s, idx) => ({ ...s, recordedAt: r.recordedAt, nurse: r.nurseName, key: `${r.id}-${idx}` })))
+                    .map((item) => (
+                      <div key={item.key} className="p-3.5 flex items-center justify-between hover:bg-slate-50/70">
+                        <div>
+                          <strong className="text-slate-900">{item.item}</strong>
+                          <span className="block text-[11px] text-slate-400">Registrado por: {item.nurse}</span>
+                        </div>
+                        <div className="text-right">
+                          <span className="px-2.5 py-1 bg-teal-50 text-teal-800 rounded-lg font-bold border border-teal-200">
+                            {item.quantity} unidades
+                          </span>
+                          <span className="block text-[10px] text-slate-400 font-mono mt-0.5">{item.recordedAt}</span>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+
+            </div>
+          )}
+
         </div>
       )}
 

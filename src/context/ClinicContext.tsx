@@ -90,13 +90,40 @@ function generateIntegrityHash(content: string): string {
   return `${hex}${nowHex}4e7b8a21f9c049d7b92`.slice(0, 64);
 }
 
+export function getDefaultModuleForRole(role: RoleId): string {
+  switch (role) {
+    case 'direccion':
+      return 'auditoria';
+    case 'recepcion':
+      return 'ficha';
+    case 'medico':
+      return 'notas';
+    case 'enfermeria':
+      return 'hoja_enfermeria';
+    case 'farmacia':
+      return 'inventario';
+    default:
+      return 'auditoria';
+  }
+}
+
 const ClinicContext = createContext<ClinicContextType | undefined>(undefined);
 
 export const ClinicProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [currentRole, setCurrentRole] = useState<RoleId | null>(() => {
+  const [currentRole, setCurrentRoleState] = useState<RoleId | null>(() => {
     return (localStorage.getItem('CLINICA_ACTIVE_ROLE') as RoleId) || null;
   });
-  const [activeModule, setActiveModule] = useState<string>('default');
+  const [activeModule, setActiveModule] = useState<string>(() => {
+    const savedRole = localStorage.getItem('CLINICA_ACTIVE_ROLE') as RoleId;
+    return savedRole ? getDefaultModuleForRole(savedRole) : 'auditoria';
+  });
+
+  const setCurrentRole = (role: RoleId | null) => {
+    setCurrentRoleState(role);
+    if (role) {
+      setActiveModule(getDefaultModuleForRole(role));
+    }
+  };
 
   // Check if sample data was previously cleared so the browser NEVER shows sample data again
   const [isSampleDataCleared, setIsSampleDataCleared] = useState<boolean>(() => {

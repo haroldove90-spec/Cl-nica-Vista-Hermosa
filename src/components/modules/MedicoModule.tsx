@@ -23,13 +23,11 @@ export const MedicoModule: React.FC = () => {
     consumedSupplies, 
     recordSupplyConsumption, 
     inventory, 
-    activeModule 
+    activeModule,
+    setActiveModule 
   } = useClinic();
 
-  const [activeTab, setActiveTab] = useState<'notas' | 'consumo'>(() => {
-    if (activeModule === 'consumo') return 'consumo';
-    return 'notas';
-  });
+  const currentTab = activeModule === 'consumo' ? 'consumo' : 'notas';
 
   const [selectedPatientId, setSelectedPatientId] = useState<string>(() => {
     return patients[0]?.id || '';
@@ -151,18 +149,18 @@ export const MedicoModule: React.FC = () => {
         {/* Tab switch */}
         <div className="flex rounded-xl bg-slate-100 p-1 border border-slate-200 text-xs font-semibold">
           <button
-            onClick={() => setActiveTab('notas')}
+            onClick={() => setActiveModule('notas')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              activeTab === 'notas' ? 'bg-white text-sky-700 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'notas' ? 'bg-white text-sky-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <FileText className="w-3.5 h-3.5" />
             <span>Notas Médicas NOM-004</span>
           </button>
           <button
-            onClick={() => setActiveTab('consumo')}
+            onClick={() => setActiveModule('consumo')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              activeTab === 'consumo' ? 'bg-white text-purple-700 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'consumo' ? 'bg-white text-purple-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <PackageCheck className="w-3.5 h-3.5" />
@@ -210,7 +208,7 @@ export const MedicoModule: React.FC = () => {
       {selectedPatient && (
         <>
           {/* TAB 1: NOTAS MÉDICAS NOM-004 */}
-          {activeTab === 'notas' && (
+          {currentTab === 'notas' && (
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
@@ -311,7 +309,7 @@ export const MedicoModule: React.FC = () => {
           )}
 
           {/* TAB 2: HOJA DE CONSUMO Y TRAZABILIDAD */}
-          {activeTab === 'consumo' && (
+          {currentTab === 'consumo' && (
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>

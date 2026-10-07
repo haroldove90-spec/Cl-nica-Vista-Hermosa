@@ -21,14 +21,11 @@ export const FarmaciaModule: React.FC = () => {
     updateInventoryStock, 
     controlledDrugLogs, 
     recordControlledDrug, 
-    activeModule 
+    activeModule,
+    setActiveModule 
   } = useClinic();
 
-  const [activeTab, setActiveTab] = useState<'inventario' | 'controlados' | 'alertas'>(() => {
-    if (activeModule === 'controlados') return 'controlados';
-    if (activeModule === 'alertas') return 'alertas';
-    return 'inventario';
-  });
+  const currentTab = (activeModule === 'controlados' || activeModule === 'alertas') ? activeModule : 'inventario';
 
   const [searchTerm, setSearchTerm] = useState('');
   const [showNewItemModal, setShowNewItemModal] = useState(false);
@@ -166,27 +163,27 @@ export const FarmaciaModule: React.FC = () => {
         {/* Tab switcher */}
         <div className="flex rounded-xl bg-slate-100 p-1 border border-slate-200 text-xs font-semibold">
           <button
-            onClick={() => setActiveTab('inventario')}
+            onClick={() => setActiveModule('inventario')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              activeTab === 'inventario' ? 'bg-white text-purple-700 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'inventario' ? 'bg-white text-purple-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <Boxes className="w-3.5 h-3.5" />
             <span>Inventario & Lotes</span>
           </button>
           <button
-            onClick={() => setActiveTab('controlados')}
+            onClick={() => setActiveModule('controlados')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              activeTab === 'controlados' ? 'bg-white text-rose-700 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'controlados' ? 'bg-white text-rose-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <PillBottle className="w-3.5 h-3.5" />
             <span>Medicamentos Controlados</span>
           </button>
           <button
-            onClick={() => setActiveTab('alertas')}
+            onClick={() => setActiveModule('alertas')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              activeTab === 'alertas' ? 'bg-white text-amber-700 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'alertas' ? 'bg-white text-amber-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <AlertTriangle className="w-3.5 h-3.5" />
@@ -196,7 +193,7 @@ export const FarmaciaModule: React.FC = () => {
       </div>
 
       {/* TAB 1: INVENTARIO & LOTES COFEPRIS */}
-      {activeTab === 'inventario' && (
+      {currentTab === 'inventario' && (
         <div className="space-y-4">
           <div className="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="relative w-full sm:w-80">
@@ -313,7 +310,7 @@ export const FarmaciaModule: React.FC = () => {
       )}
 
       {/* TAB 2: MEDICAMENTOS CONTROLADOS (GRUPO I, II, III COFEPRIS) */}
-      {activeTab === 'controlados' && (
+      {currentTab === 'controlados' && (
         <div className="space-y-4">
           <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
@@ -417,7 +414,7 @@ export const FarmaciaModule: React.FC = () => {
       )}
 
       {/* TAB 3: ALERTAS DE CADUCIDAD Y STOCK */}
-      {activeTab === 'alertas' && (
+      {currentTab === 'alertas' && (
         <div className="space-y-6">
           
           {/* Near Expiration Alert */}

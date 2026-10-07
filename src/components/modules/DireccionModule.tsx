@@ -24,14 +24,11 @@ export const DireccionModule: React.FC = () => {
     payAccountPayable, 
     patients, 
     inventory, 
-    activeModule 
+    activeModule,
+    setActiveModule 
   } = useClinic();
 
-  const [activeSubTab, setActiveSubTab] = useState<'auditoria' | 'finanzas' | 'resumen'>(() => {
-    if (activeModule === 'auditoria') return 'auditoria';
-    if (activeModule === 'finanzas') return 'finanzas';
-    return 'resumen';
-  });
+  const currentTab = (activeModule === 'finanzas' || activeModule === 'resumen') ? activeModule : 'auditoria';
 
   // Filters for Audit Log
   const [auditSearch, setAuditSearch] = useState('');
@@ -107,36 +104,36 @@ export const DireccionModule: React.FC = () => {
         {/* Sub Navigation */}
         <div className="flex rounded-xl bg-slate-100 p-1 border border-slate-200 text-xs font-semibold">
           <button
-            onClick={() => setActiveSubTab('resumen')}
-            className={`px-3 py-1.5 rounded-lg transition ${
-              activeSubTab === 'resumen' ? 'bg-white text-slate-900 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            Resumen Operativo
-          </button>
-          <button
-            onClick={() => setActiveSubTab('auditoria')}
+            onClick={() => setActiveModule('auditoria')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              activeSubTab === 'auditoria' ? 'bg-white text-blue-700 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'auditoria' ? 'bg-white text-blue-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <Lock className="w-3.5 h-3.5 text-blue-600" />
             <span>Bitácora Inalterable</span>
           </button>
           <button
-            onClick={() => setActiveSubTab('finanzas')}
+            onClick={() => setActiveModule('finanzas')}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
-              activeSubTab === 'finanzas' ? 'bg-white text-emerald-700 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'finanzas' ? 'bg-white text-emerald-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <DollarSign className="w-3.5 h-3.5 text-emerald-600" />
             <span>Cuentas por Pagar</span>
           </button>
+          <button
+            onClick={() => setActiveModule('resumen')}
+            className={`px-3 py-1.5 rounded-lg transition ${
+              currentTab === 'resumen' ? 'bg-white text-slate-900 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            Panel Ejecutivo
+          </button>
         </div>
       </div>
 
       {/* VIEW: Resumen Operativo */}
-      {activeSubTab === 'resumen' && (
+      {currentTab === 'resumen' && (
         <div className="space-y-6">
           {/* Key Metrics */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -218,7 +215,7 @@ export const DireccionModule: React.FC = () => {
               </p>
             </div>
             <button
-              onClick={() => setActiveSubTab('auditoria')}
+              onClick={() => setActiveModule('auditoria')}
               className="px-4 py-2.5 bg-white text-blue-950 font-bold rounded-xl text-xs hover:bg-blue-50 transition shrink-0"
             >
               Auditar Registros ({auditLogs.length})
@@ -300,7 +297,7 @@ export const DireccionModule: React.FC = () => {
       )}
 
       {/* VIEW: Bitácora Inalterable de Auditoría */}
-      {activeSubTab === 'auditoria' && (
+      {currentTab === 'auditoria' && (
         <div className="space-y-4">
           
           {/* Controls Bar */}
@@ -397,7 +394,7 @@ export const DireccionModule: React.FC = () => {
       )}
 
       {/* VIEW: Cuentas por Pagar & Administración */}
-      {activeSubTab === 'finanzas' && (
+      {currentTab === 'finanzas' && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-bold text-slate-900">
