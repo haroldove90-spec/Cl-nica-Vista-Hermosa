@@ -1,0 +1,6 @@
+{
+  "name": "Clínica Vista Hermosa",
+  "description": "Sistema integral de gestión clínica y hospitalaria conforme a COFEPRIS y NOM-004-SSA3-2012 con bitácora inalterable, control de insumos y roles hospitalarios.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
